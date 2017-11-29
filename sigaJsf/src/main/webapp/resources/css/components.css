@@ -1,0 +1,77 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 29/04/2016, 08:54:07
+    Author     : thadeu
+*/
+
+.ui-panelgrid .ui-panelgrid-cell{
+    padding: 1px 2px;
+}
+
+
+.ui-datatable tbody td{
+    padding: 1px 1px 1px 3px !important;
+    font-size: 14px !important;
+}
+
+.ui-datatable thead{
+    font-size: 16px !important;
+}
+
+button{
+    font-size: 16px !important;
+}
+
+.ui-widget .ui-datatable thead th{
+    font-weight: bold;
+}
+
+.ui-paginator{
+    font-size: 14px !important;
+}
+
+
+.ui-button-icon-only {
+    height: 1.4em !important;
+    width: 1.9em !important;
+}
+
+.ui-widget { 
+    font-family: Arimo, Arial, Helvetica, sans-serif !important;
+}
+
+.ui-menuitem-text {
+    font-size: 1em;
+}
+
+ui-layout-north {
+        z-index:200 !important;
+        overflow:visible !important;
+    }
+
+.ui-layout-north .ui-layout-unit-content {
+        overflow:visible !important;
+    }
+
+    input.logout{
+        background: #459e00 url("/siga/faces/javax.faces.resource/images/ui-bg_highlight-hard_15_459e00_1x100.png?ln=primefaces-south-street") 50% 50% repeat-x;
+        border: 1px solid #327e04;
+        font-size: 16px !important;
+        font-weight: bold;
+        color: #ffffff;
+        display: inline-block;
+        -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px;
+        font-family: Arimo, Arial, Helvetica, sans-serif !important;
+        padding: 8px 14px;
+        cursor: pointer;
+        display: inline-block;
+        margin-right: .1em;
+
+
+    }    
+
+

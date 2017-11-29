@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:sec="http://www.springframework.org/security/tags">
+    <h:head>
+    </h:head>
+    <body>
+        <ui:composition template="/template/common/layoutPrincipal.xhtml">
+            <ui:define name="content">
+                <div class="ui-grid">
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-6">
+                            <p:panel id="assentamento" header="Escolaridade" style="margin-bottom:20px">
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <p:graphicImage library="images" name="educacao.png" />
+                                    <p:link outcome="/faces/view/pessoa/escolaridade/ListEscolaridade" value="Escolaridade" ></p:link>
+                                </h:panelGrid>
+                            </p:panel>
+                        </div>
+                    
+                
+                        <div class="ui-grid-col-6">
+                            <p:panel id="estadoCivil" header="Estado Civil" style="margin-bottom:20px">
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <p:graphicImage library="images" name="estadocivil.png" />
+                                    <p:link outcome="/faces/view/pessoa/estadoCivil/ListEstadoCivil" value="Estado Civil" ></p:link>
+                                </h:panelGrid>
+                            </p:panel>
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </body>    
+</html>

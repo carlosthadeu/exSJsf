@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    
+
+    <ui:composition template="/template/common/layoutPrincipal.xhtml">
+        <ui:define name="content">
+            <h:form id="FormSecUser" >
+                <p:panelGrid columns="2" style="font-weight: bold;" >
+                    <p:outputLabel value="Login:"/>
+                    <p:outputLabel value="#{secUserController.selected.username}"/>
+                    <p:outputLabel value="Nome:"/>
+                    <p:outputLabel value="#{secUserController.selected.primeiroNome}"/>
+                    <p:outputLabel value="Sobrenome:"/>
+                    <p:outputLabel value="#{secUserController.selected.ultimoNome}"/>
+                    <p:outputLabel value="Email:"/>
+                    <p:outputLabel value="#{secUserController.selected.email}"/>
+                    <p:outputLabel value="Conta expirada ?"/>
+                    <p:outputLabel value="#{secUserController.selected.accountExpired ? 'Sim' : 'Não'}"/>
+                    <p:outputLabel value="Ativo ?"/>
+                    <p:outputLabel value="#{secUserController.selected.enabled ? 'Sim' : 'Não'}"/>
+                    
+                    <p:column/>
+                    <p:commandButton action="#{secUserController.prepareList}" icon="ui-icon-arrowreturnthick-1-w" value="Retornar à lista de usuários" ajax="false" />
+                        
+                </p:panelGrid>
+                
+                
+                
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

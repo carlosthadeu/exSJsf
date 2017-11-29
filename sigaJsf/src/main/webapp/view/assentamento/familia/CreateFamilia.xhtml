@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template/common/layoutPrincipal.xhtml">
+        <ui:define name="content">
+
+            <h:form id="FormFuncionalidade">
+                <p:panelGrid columns="2">
+                    <f:facet name="header">
+
+                        <p:row>
+                            <p:column >Assentamento: </p:column>
+                            <p:column >#{familiaController.selected.assentamento.assentamento}</p:column>
+                        </p:row>
+                    </f:facet>
+
+                    <p:wizard flowListener="#{familiaController.onFlowProcess}" >
+                        <p:tab id="pricipal" title="Dados do Assentado">
+                            <p:panelGrid >
+                                <p:row>
+                                    <p:column><p:outputLabel value="Data do nascimento" for="datanascimento" /></p:column>
+                                    <p:column ><p:calendar id="datanascimento" value="#{familiaController.novoAssentado.dataNascimento}" locale="pt" showOn="button" navigator="true" yearRange="c-100:c+0" pattern="dd/MM/yyyy" /></p:column>
+                                    <p:column><p:outputLabel value="UF do nascimento" for="selectUfNasc" /></p:column>
+                                    <p:column>
+                                        <p:selectOneMenu id="selectUfNasc" value="#{familiaController.novoAssentado.ufNascimento}"  >
+                                            <p:ajax listener="#{familiaController.onUfNascChange()}" update="selectMunicipioNasc" />
+                                            <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                                            <f:selectItems value="#{familiaController.estados}" var="selecioneEstadoNasc" itemLabel="#{selecioneEstadoNasc.nome}"  itemValue="#{selecioneEstadoNasc}"  />
+                                        </p:selectOneMenu>
+                                    </p:column>
+                                    <p:column>
+                                        <p:outputLabel for="selectMunicipioNasc" value="Município de Nascimento" />
+                                        <p:selectOneMenu id="selectMunicipioNasc" value="#{familiaController.novoAssentado.municipioNascimento}"  >
+                                            <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                                            <f:selectItems value="#{familiaController.listaMunNasc}" var="selecioneMunicipioNasc" itemLabel="#{selecioneMunicipioNasc.nome}"  itemValue="#{selecioneMunicipioNasc}"  />
+                                        </p:selectOneMenu>
+                                    </p:column>
+
+                                </p:row>
+                                <p:row>
+                                    <p:column><p:outputLabel value="Nome" for="nome" /></p:column>
+                                    <p:column colspan="6"><p:inputText id="nome" value="#{familiaController.novoAssentado.nome}" title="Nome"  required="true" requiredMessage="Nome obrigatório !" size="100"/></p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column><p:outputLabel value="Email " for="email" /></p:column>
+                                    <p:column colspan="6"><p:inputText id="email" value="#{familiaController.novoAssentado.email}" title="Email"  size="100"/></p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column><p:outputLabel value="Nome do Pai" for="nomepai" /></p:column>
+                                    <p:column colspan="6"><p:inputText id="nomepai" value="#{familiaController.novoAssentado.nomePai}" title="Nome do Pai"   size="100"/></p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column><p:outputLabel value="Nome da mãe" for="nomemae" /></p:column>
+                                    <p:column colspan="6"><p:inputText id="nomemae" value="#{familiaController.novoAssentado.nomeMae}" title="Nome da Mãe"  size="100"/></p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column><p:outputLabel value="Raça / Cor" for="racacor" /></p:column>
+                                    <p:column colspan="6"><p:inputText id="racacor" value="#{familiaController.novoAssentado.racaCor}" title="Raça / Cor"  size="50"/></p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column><p:outputLabel value="Sexo" for="sexo" /></p:column>
+                                    <p:column>
+                                        <p:selectOneRadio id="sexo" value="#{familiaController.novoAssentado.sexo}" columns="2">
+                                            <f:selectItems value="#{familiaController.sexos}" var="sexo" itemLabel="#{sexo.sexo}" itemValue="#{sexo}"/>
+                                        </p:selectOneRadio>
+                                    </p:column>
+                                    <p:column><p:outputLabel value="Escolaridade" for="escolaridade" /></p:column>
+                                    <p:column>
+                                        <p:selectOneMenu id="escolaridade" value="#{familiaController.novoAssentado.escolaridade}"  >
+                                            <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                                            <f:selectItems value="#{familiaController.listaEscolaridades}" var="selecioneEscolaridade" itemLabel="#{selecioneEscolaridade.escolaridade}"  itemValue="#{selecioneEscolaridade}"  />
+                                        </p:selectOneMenu>
+                                    </p:column>
+                                    <p:column><p:column><p:outputLabel value="Estuda ?" for="estudason" /></p:column></p:column>
+                                    <p:column>
+                                        <p:selectOneRadio id="estudason" value="#{familiaController.novoAssentado.estuda}" columns="2" >
+                                            <f:selectItem itemLabel="Sim" itemValue="true" />
+                                            <f:selectItem itemLabel="Não" itemValue="false" />
+                                        </p:selectOneRadio>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Nacionalidade" for="selectNacionalidade" />
+                                        <p:selectOneMenu id="selectNacionalidade" value="#{familiaController.novoAssentado.nacionalidade}"  >
+                                            <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                                            <f:selectItems value="#{familiaController.nacionalidades}" var="selecioneNacionalidade" itemLabel="#{selecioneNacionalidade.nome}"  itemValue="#{selecioneNacionalidade}"  />
+                                        </p:selectOneMenu>
+                                    </p:column>
+                                    <p:column>
+                                        <p:column><p:outputLabel value="Estado Civil" for="estadoCivil" /></p:column>
+                                        <p:column>
+                                            <p:selectOneMenu id="estadoCivil" value="#{familiaController.novoAssentado.estadoCivil}"  >
+                                                <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                                                <f:selectItems value="#{familiaController.listaEstadoCivil}" var="selecioneEstadoCivil" itemLabel="#{selecioneEstadoCivil.estadoCivil}"  itemValue="#{selecioneEstadoCivil}"  />
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                    </p:column>
+
+                                </p:row>
+                                <p:column/>
+                                <p:panel id="docAssentado" header="Documentos"  style="margin-bottom:20px">
+                                    <p:panelGrid columns="3" >
+                                        <p:panelGrid columns="2" >
+                                            <p:outputLabel value="CPF" for="cpf" />
+                                            <p:inputMask id="cpf" value="#{familiaController.novoAssentado.cpf}" title="CPF"  size="15" mask="999.999.999-99" converter="cpfConverter" required="true" requiredMessage="CPF obrigatório !"/>
+                                            <p:outputLabel value="PIS/PASEP" for="pisPasep" />
+                                            <p:inputMask id="pisPasep" value="#{familiaController.novoAssentado.pisPasep}" title="PIS/PASEP"  size="15" mask="999.99999.99-9" converter="pisPasepConverter"/>
+                                        </p:panelGrid>
+                                        <p:panelGrid columns="2" >
+                                            <f:facet name="header" >Carteira de Identidade</f:facet>
+                                            <p:outputLabel value="Nº RG" for="rg" />
+                                            <p:inputText id="rg" value="#{familiaController.novoAssentado.rg}" title="RG"   size="20"/>
+                                            <p:outputLabel value="Órgão Emissor" for="emissorRg" />
+                                            <p:inputText id="emissorRg" value="#{familiaController.novoAssentado.orgaoEmissorRg}" title="Órgão Emisor"   size="10"/>
+                                            <p:outputLabel value="UF" for="selectUfRg" />
+                                            <p:selectOneMenu id="selectUfRg" value="#{familiaController.novoAssentado.ufRg}"  >
+                                                <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                                                <f:selectItems value="#{familiaController.estados}" var="selecioneEstado" itemLabel="#{selecioneEstado.nome}"  itemValue="#{selecioneEstado}"  />
+                                            </p:selectOneMenu>
+                                        </p:panelGrid>
+                                        <p:panelGrid columns="2" >
+                                            <f:facet name="header" >Carteira de Trabalho</f:facet>
+                                            <p:outputLabel value="Nº CTPS" for="ctps" />
+                                            <p:inputText id="ctps" value="#{familiaController.novoAssentado.ctps}" title="CTPS"   size="20"/>
+                                            <p:outputLabel value="Série" for="serieCtps" />
+                                            <p:inputText id="serieCtps" value="#{familiaController.novoAssentado.serieCtps}" title="Série CTPS"   size="10"/>
+                                            <p:outputLabel value="UF" for="selectUfCtps" />
+                                            <p:selectOneMenu id="selectUfCtps" value="#{familiaController.novoAssentado.ufCtps}"  >
+                                                <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                                                <f:selectItems value="#{familiaController.estados}" var="selecioneEstadoctps" itemLabel="#{selecioneEstadoctps.nome}"  itemValue="#{selecioneEstadoctps}"  />
+                                            </p:selectOneMenu>
+                                        </p:panelGrid>
+                                    </p:panelGrid>
+                                </p:panel>
+                            </p:panelGrid>
+                        </p:tab>
+                        <p:tab id="conjuge" title="Dados do Conjuge">
+                            <p:panelGrid columns="2">
+
+                                <p:outputLabel value="Data do nascimento" for="datanascimentoconj" />
+                                <p:calendar id="datanascimentoconj" value="#{familiaController.novoConjuge.dataNascimento}" locale="pt" showOn="button" navigator="true" yearRange="c-100:c+0" pattern="dd/MM/yyyy" />
+                                <p:outputLabel value="Nome" for="nomeconj" />
+                                <p:inputText id="nomeconj" value="#{familiaController.novoConjuge.nome}" title="Nome"   size="100"/>
+
+                                <p:outputLabel value="Email " for="emailconj" />
+                                <p:inputText id="emailconj" value="#{familiaController.novoConjuge.email}" title="Email"  size="100"/>
+                                <p:outputLabel value="Nome do Pai" for="nomepaiconj" />
+                                <p:inputText id="nomepaiconj" value="#{familiaController.novoConjuge.nomePai}" title="Nome do Pai"   size="100"/>
+                                <p:outputLabel value="Nome da mãe" for="nomemaeconj" />
+                                <p:inputText id="nomemaeconj" value="#{familiaController.novoConjuge.nomeMae}" title="Nome da Mãe"  size="100"/>
+                                <p:outputLabel value="Raça / Cor" for="racacorconj" />
+                                <p:inputText id="racacorconj" value="#{familiaController.novoConjuge.racaCor}" title="Raça / Cor"  size="50"/>
+                                <p:outputLabel value="Sexo" for="sexoconj" />
+                                <p:selectOneRadio id="sexoconj" value="#{familiaController.novoConjuge.sexo}" columns="2">
+                                    <f:selectItems value="#{familiaController.sexos}" var="sexoconj" itemLabel="#{sexoconj.sexo}" itemValue="#{sexoconj}"/>
+                                </p:selectOneRadio>
+                                <p:column/>
+                                <p:panel id="docConjuge" header="Documentos"  style="margin-bottom:20px">
+                                    <p:panelGrid columns="3" >
+                                        <p:panelGrid columns="2" >
+                                            <p:outputLabel value="CPF" for="cpfconj" />
+                                            <p:inputMask id="cpfconj" value="#{familiaController.novoConjuge.cpf}" title="CPF"  size="15" mask="999.999.999-99" converter="cpfConverter" />
+                                            <p:outputLabel value="PIS/PASEP" for="pisPasepconj" />
+                                            <p:inputMask id="pisPasepconj" value="#{familiaController.novoConjuge.pisPasep}" title="PIS/PASEP"  size="15" mask="999.99999.99-9" converter="pisPasepConverter"/>
+                                        </p:panelGrid>
+                                        <p:panelGrid columns="2" >
+                                            <f:facet name="header" >Carteira de Identidade</f:facet>
+                                            <p:outputLabel value="Nº RG" for="rgconj" />
+                                            <p:inputText id="rgconj" value="#{familiaController.novoConjuge.rg}" title="RG"   size="20"/>
+                                            <p:outputLabel value="Órgão Emissor" for="emissorRgconj" />
+                                            <p:inputText id="emissorRgconj" value="#{familiaController.novoConjuge.orgaoEmissorRg}" title="Órgão Emisor"   size="10"/>
+                                            <p:outputLabel value="UF" for="selectUfRgconj" />
+                                            <p:selectOneMenu id="selectUfRgconj" value="#{familiaController.novoConjuge.ufRg}"  >
+                                                <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                                                <f:selectItems value="#{familiaController.estados}" var="selecioneEstadoconj" itemLabel="#{selecioneEstadoconj.nome}"  itemValue="#{selecioneEstadoconj}"  />
+                                            </p:selectOneMenu>
+                                        </p:panelGrid>
+                                        <p:panelGrid columns="2" >
+                                            <f:facet name="header" >Carteira de Trabalho</f:facet>
+                                            <p:outputLabel value="Nº CTPS" for="ctpsconj" />
+                                            <p:inputText id="ctpsconj" value="#{familiaController.novoConjuge.ctps}" title="CTPS"   size="20"/>
+                                            <p:outputLabel value="Série" for="serieCtpsconj" />
+                                            <p:inputText id="serieCtpsconj" value="#{familiaController.novoConjuge.serieCtps}" title="Série CTPS"   size="10"/>
+                                            <p:outputLabel value="UF" for="selectUfCtpsconj" />
+                                            <p:selectOneMenu id="selectUfCtpsconj" value="#{familiaController.novoConjuge.ufCtps}"  >
+                                                <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                                                <f:selectItems value="#{familiaController.estados}" var="selecioneEstadoctpsconj" itemLabel="#{selecioneEstadoctpsconj.nome}"  itemValue="#{selecioneEstadoctpsconj}"  />
+                                            </p:selectOneMenu>
+                                        </p:panelGrid>
+                                    </p:panelGrid>
+                                </p:panel>
+                            </p:panelGrid>
+                        </p:tab>
+                    </p:wizard>
+
+
+
+
+
+
+                </p:panelGrid>
+
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+
+</html>

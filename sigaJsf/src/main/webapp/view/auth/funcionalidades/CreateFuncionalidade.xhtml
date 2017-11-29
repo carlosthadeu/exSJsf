@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template/common/layoutPrincipal.xhtml">
+        <ui:define name="content">
+            
+            <h:form id="FormFuncionalidade">
+                <p:panelGrid columns="2">
+                    <f:facet name="header">
+                        <p:row>
+                            <p:column colspan="2">Nova Funcionalidade</p:column>
+                        </p:row>
+                    </f:facet>
+                    <p:outputLabel for="selectSistema" value="Sistema" />
+                    <p:selectOneMenu id="selectSistema" value="#{funcionalidadeController.paramSistema}" required="true" requiredMessage="Campo sistema obrigatório !" >
+                        <p:ajax listener="#{funcionalidadeController.onSistemaChange}" update="selectModulo" />
+                        <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                        <f:selectItems value="#{funcionalidadeController.listaSistemas}" var="selecioneSistema" itemLabel="#{selecioneSistema.sistema}"  itemValue="#{selecioneSistema}"  />
+                    </p:selectOneMenu>
+                    
+                    <p:outputLabel value="Módulo" for="selectModulo" />
+                    <p:selectOneMenu id="selectModulo" value="#{funcionalidadeController.selected.modulo}" converter="generic" required="true" requiredMessage="Campo módulo obrigatório !">
+                        <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                        <f:selectItems value="#{funcionalidadeController.listaModulos}" var="selecioneModulo" itemLabel="#{selecioneModulo.modulo}"  itemValue="#{selecioneModulo}"  />
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Nome" for="funcionalidade" />
+                    <p:inputText id="funcionalidade" value="#{funcionalidadeController.selected.funcionalidade}" title="Funcionalidade"  required="true" requiredMessage="Campo nome obrigatório !" size="150"/>
+                    <p:outputLabel value="URL" for="url" />
+                    <p:inputText id="url" value="#{funcionalidadeController.selected.url}" title="Url"  required="true" requiredMessage="A URL da funcionalidade é obrigatória !" size="250"/>
+                    
+                    <p:column/>
+                    <p:panelGrid columns="2">
+                        <p:commandButton action="#{funcionalidadeController.create}" icon="ui-icon-disk"  ajax="false" value="Salvar"/>
+                        <p:commandButton action="#{funcionalidadeController.prepareList}" value="Lista de funcionalidades" immediate="true" icon="ui-icon-cancel"  ajax="false"  />
+                    </p:panelGrid>
+                    
+                </p:panelGrid>
+                
+            </h:form>
+            
+        </ui:define>
+    </ui:composition>
+
+</html>

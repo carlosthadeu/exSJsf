@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<url>http://maven.apache.org</url>
+	<parent>
+		<groupId>br.gov.ce.idace</groupId>
+		<artifactId>siga-build</artifactId>
+		<version>1.0</version>
+		<relativePath>../siga-build/pom.xml</relativePath>
+	</parent>
+	<artifactId>siga-core</artifactId>
+	<packaging>jar</packaging>
+	<name>SIGA-CORE - APLICACAO QUE CONTEM AS CLASSES DE MODELO</name>
+	
+	 <properties>
+        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+	<dependencies>
+		<!-- CONTAINER CDI PARA JAR APLICATION -->
+		<dependency>
+			<groupId>org.jboss.weld.se</groupId>
+			<artifactId>weld-se</artifactId>
+			<version>2.4.0.Final</version>
+		</dependency>
+	 
+	</dependencies>
+</project>

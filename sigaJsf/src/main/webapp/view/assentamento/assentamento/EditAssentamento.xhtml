@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template/common/layoutPrincipal.xhtml">
+        <ui:define name="content">
+            
+            <h:form>
+                <p:panelGrid columns="2">
+                    <f:facet name="header" >
+                        Editar Assentamento
+                    </f:facet>
+                    <p:outputLabel for="selectMunicipio" value="Município" />
+                    <p:selectOneMenu id="selectMunicipio" value="#{assentamentoController.selected.municipio}"  converter="municipioConverter">
+                        <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                        <f:selectItems value="#{assentamentoController.listaMunicipio}" var="selecioneMunicipio" itemLabel="#{selecioneMunicipio.nome}"  itemValue="#{selecioneMunicipio}"  />
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Código" for="codigo" />
+                    <p:inputText id="codigo" value="#{assentamentoController.selected.codigo}" title="Código"  required="true" requiredMessage="Código obrigatório !" size="10"/>
+                    <p:outputLabel value="Nome" for="nome" />
+                    <p:inputText id="nome" value="#{assentamentoController.selected.assentamento}" title="Nome"  required="true" requiredMessage="Nome obrigatório !" size="100"/>
+                    <p:outputLabel value="Capacidade" for="capacidade" />
+                    <p:inputText id="capacidade" value="#{assentamentoController.selected.capacidade}" title="Capacidade"   size="30"><f:convertNumber type="number" integerOnly="true" /></p:inputText>
+                    <p:outputLabel value="Área" for="area" />
+                    <p:inputText id="area" value="#{assentamentoController.selected.area}" title="Área"   size="30" converter="doubleConverter"/>
+                    <p:outputLabel value="Tipo de aquisição do assentamento" for="tipoAq" />
+                    <p:selectOneRadio id="tipoAq" value="#{assentamentoController.selected.tipoAquisicaoAssentamento}" columns="3" required="true" requiredMessage="Tipo de aquisição do assentamento obrigatório !">
+                        <f:selectItems value="#{assentamentoController.tiposAquisicaoAssentamento}" var="tipoAquisicao" itemLabel="#{tipoAquisicao.tipoAquisicaoAssentamento}" itemValue="#{tipoAquisicao}"/>
+                    </p:selectOneRadio>
+                    <p:outputLabel for="selectTipoAssentamento" value="Tipo de Assentamento" />
+                    <p:selectOneMenu id="selectTipoAssentamento" value="#{assentamentoController.selected.tipoAssentamento}"  >
+                        <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                        <f:selectItems value="#{assentamentoController.listaTipoAssentamentos}" var="selecioneTipoAssentamento" itemLabel="#{selecioneTipoAssentamento.tipoAssentamento}"  itemValue="#{selecioneTipoAssentamento}"  />
+                    </p:selectOneMenu>
+                    <p:column/>
+                    <p:panelGrid columns="2">
+                        <p:commandButton action="#{assentamentoController.update}" icon="ui-icon-disk"  ajax="false" value="Salvar"/>
+                        <p:commandButton action="#{assentamentoController.prepareList}" value="Lista de assentamentoes" immediate="true" icon="ui-icon-cancel"  ajax="false" />
+                    </p:panelGrid>
+
+                </p:panelGrid>
+                
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
+

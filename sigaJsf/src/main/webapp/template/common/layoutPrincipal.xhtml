@@ -1,0 +1,51 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:sec="http://www.springframework.org/security/tags">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/resources/css/components.css" media="screen" />
+        <title>SIGA - Sistema Integrado de gestão agrária</title>
+        <ui:param name="root" value="#{request.contextPath}/" />
+        <h:outputScript library="js" name="locale.js"/>
+        <h:outputStylesheet library="webjars" name="font-awesome/4.7.0/css/font-awesome.css"  />
+
+
+    </h:head>
+    <h:body>
+        <p:layout fullPage="true">
+            <div align="left">
+                <p:layoutUnit position="center">
+                    <ui:insert name="content">
+                        O que estiver aqui será substituido!
+                    </ui:insert>
+                </p:layoutUnit>
+            </div>
+            <p:layoutUnit position="north">
+                <p:panelGrid columns="3"  layout="grid">
+                    <p:link outcome="/faces/view/modulos.xhtml"><p:graphicImage library="images" name="logo-idace.png"/></p:link>
+
+                    <h1>Sistema Integrado de Gestão Agrária - SIGA</h1>
+                    <sec:authorize access="isAnonymous()"><p:button outcome="/unsecure/login" value="Entrar" icon="fa fa-lock"/></sec:authorize>
+                </p:panelGrid>                
+                
+                <p:growl id="growl" showDetail="true" autoUpdate="true" sticky="true" /> 
+                <sec:authorize access="isAuthenticated()">                    
+                    <h:form>
+                        <p:menubar>
+                            <p:submenu label="Principal">
+                                <p:menuitem value="Principal" url="/faces/view/modulos.xhtml" icon="ui-icon-home" />
+                                <p:menuitem value="Trocar senha" url="/faces/view/auth/secUser/ChangePassword.xhtml" icon="ui-icon-key" ajax="false" />
+                                <p:menuitem value="Logout" url="/logout" icon="ui-icon-key" ajax="false" />
+                            </p:submenu>
+                        </p:menubar>
+                    </h:form>
+                </sec:authorize>    
+                
+                
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+</html>

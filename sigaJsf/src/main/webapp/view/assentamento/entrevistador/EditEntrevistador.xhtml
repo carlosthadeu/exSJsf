@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template/common/layoutPrincipal.xhtml">
+        <ui:define name="content">
+            
+            <h:form>
+                <p:panelGrid columns="2" >
+                    <f:facet name="header" >
+                        Editar Entrevistador
+                    </f:facet>
+
+                    <p:outputLabel value="Data do nascimento" for="datanascimento" />
+                    <p:calendar id="datanascimento" value="#{entrevistadorController.selected.dataNascimento}" locale="pt" showOn="button" navigator="true" yearRange="c-100:c+0" pattern="dd/MM/yyyy" />
+                    <p:outputLabel value="Nome" for="nome" />
+                    <p:inputText id="nome" value="#{entrevistadorController.selected.nome}" title="Nome"  required="true" requiredMessage="Nome obrigatório !" size="150"/>
+
+                    <p:outputLabel value="Email " for="email" />
+                    <p:inputText id="email" value="#{entrevistadorController.selected.email}" title="Email"  size="150"/>
+                    <p:outputLabel value="Nome do Pai" for="nomepai" />
+                    <p:inputText id="nomepai" value="#{entrevistadorController.selected.nomePai}" title="Nome do Pai"   size="150"/>
+                    <p:outputLabel value="Nome da mãe" for="nomemae" />
+                    <p:inputText id="nomemae" value="#{entrevistadorController.selected.nomeMae}" title="Nome da Mãe"  size="150"/>
+                    <p:outputLabel value="Raça / Cor" for="racacor" />
+                    <p:inputText id="racacor" value="#{entrevistadorController.selected.racaCor}" title="Raça / Cor"  size="50"/>
+                    <p:outputLabel value="Sexo" for="sexo" />
+                    <p:selectOneRadio id="sexo" value="#{entrevistadorController.selected.sexo}" columns="2">
+                        <f:selectItems value="#{entrevistadorController.sexos}" var="sexo" itemLabel="#{sexo.sexo}" itemValue="#{sexo}"/>
+                    </p:selectOneRadio>
+                    <p:column/>
+                    <p:panel id="basic" header="Documentos"  style="margin-bottom:20px">
+                        <p:panelGrid columns="3" >
+                            <p:panelGrid columns="2" >
+                                <p:outputLabel value="CPF" for="cpf" />
+                                <p:inputMask id="cpf" value="#{entrevistadorController.selected.cpf}" title="CPF"  size="15" mask="999.999.999-99" converter="cpfConverter" required="true" requiredMessage="CPF obrigatório !"/>
+                                <p:outputLabel value="PIS/PASEP" for="pisPasep" />
+                                <p:inputMask id="pisPasep" value="#{entrevistadorController.selected.pisPasep}" title="PIS/PASEP"  size="15" mask="999.99999.99-9" converter="pisPasepConverter"/>
+                            </p:panelGrid>
+                            <p:panelGrid columns="2" >
+                                <f:facet name="header" >Carteira de Identidade</f:facet>
+                                <p:outputLabel value="Nº RG" for="rg" />
+                                <p:inputText id="rg" value="#{entrevistadorController.selected.rg}" title="RG"   size="20"/>
+                                <p:outputLabel value="Órgão Emissor" for="emissorRg" />
+                                <p:inputText id="emissorRg" value="#{entrevistadorController.selected.orgaoEmissorRg}" title="Órgão Emisor"   size="10"/>
+                                <p:outputLabel value="UF" for="selectUfRg" />
+                                <p:selectOneMenu id="selectUfRg" value="#{entrevistadorController.selected.ufRg}"  >
+                                    <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                                    <f:selectItems value="#{entrevistadorController.estados}" var="selecioneEstado" itemLabel="#{selecioneEstado.nome}"  itemValue="#{selecioneEstado}"  />
+                                </p:selectOneMenu>
+                            </p:panelGrid>
+                            <p:panelGrid columns="2" >
+                                <f:facet name="header" >Carteira de Trabalho</f:facet>
+                                <p:outputLabel value="Nº CTPS" for="ctps" />
+                                <p:inputText id="ctps" value="#{entrevistadorController.selected.ctps}" title="CTPS"   size="20"/>
+                                <p:outputLabel value="Série" for="serieCtps" />
+                                <p:inputText id="serieCtps" value="#{entrevistadorController.selected.serieCtps}" title="Série CTPS"   size="10"/>
+                                <p:outputLabel value="UF" for="selectUfCtps" />
+                                <p:selectOneMenu id="selectUfCtps" value="#{entrevistadorController.selected.ufCtps}"  >
+                                    <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                                    <f:selectItems value="#{entrevistadorController.estados}" var="selecioneEstadoctps" itemLabel="#{selecioneEstadoctps.nome}"  itemValue="#{selecioneEstadoctps}"  />
+                                </p:selectOneMenu>
+                            </p:panelGrid>
+                        </p:panelGrid>    
+                    </p:panel>
+                    <p:column/>
+                    <p:panelGrid columns="2">
+                        <p:commandButton action="#{entrevistadorController.update}" icon="ui-icon-disk"  ajax="false" value="Salvar"/>
+                        <p:commandButton action="#{entrevistadorController.prepareList}" value="Cancelar" immediate="true" icon="ui-icon-cancel"  ajax="false" />
+                    </p:panelGrid>
+                    
+                </p:panelGrid>
+                
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
+

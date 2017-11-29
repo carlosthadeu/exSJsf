@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:sec="http://www.springframework.org/security/tags">
+    <h:head>
+
+        <style type="text/css">
+            .ui-layout, .ui-layout-doc, .ui-layout-unit, 
+            .ui-layout-wrap, .ui-layout-bd, .ui-layout-hd, .ui-g
+        </style>
+    </h:head>
+    <body>
+
+        <ui:composition template="/template/common/layoutPrincipal.xhtml">
+            <ui:define name="content">
+                <div class="ui-grid">
+                    <div class="ui-grid-row">
+                        <sec:authorize access="hasAnyRole('ROLE_ADMIN')" > 
+                            <div class="ui-grid-col-4" >
+                                <p:fieldset legend="Módulo de Controle de Usuários  " style="margin-bottom:20px">
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <p:graphicImage library="images" name="pessoas.png" />
+
+                                        <h:outputText value="O Módulo de Controle de Usuários é destinado a manutenção avançada do controle de acesso as aplicações do SIGA."  />
+
+                                        <p:button outcome="/faces/view/auth/moduloControleUsuario" value="Acessar" icon="ui-icon-star"></p:button>
+                                    </h:panelGrid>
+                                </p:fieldset>
+                            </div>
+                        </sec:authorize>
+                        
+                            <div class="ui-grid-col-4">
+                                <p:fieldset legend="Módulo Assentamento" style="margin-bottom:20px">
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <p:graphicImage library="images" name="assentamento.png" />
+
+                                        <h:outputText value="O Módulo de Controle de Usuários é destinado a manutenção avançada do controle de acesso as aplicações do SIGA."  />
+
+                                        <p:button outcome="/faces/view/assentamento/moduloAssentamento" value="Acessar" icon="ui-icon-star"></p:button>
+                                    </h:panelGrid>
+                                </p:fieldset>
+                            </div>
+                        
+                        <sec:authorize access="hasAnyRole('ROLE_ADMIN')" > 
+                            <div class="ui-grid-col-4" >
+                                <p:fieldset legend="Módulo Pessoas" style="margin-bottom:20px">
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <p:graphicImage library="images" name="administrador.png" />
+
+                                        <h:outputText value="O Módulo Pessoas tem tabelas de configuração para pessoas físicas e jurídicas."  />
+
+                                        <p:button outcome="/faces/view/pessoa/moduloPessoa" value="Acessar" icon="ui-icon-star"></p:button>
+                                    </h:panelGrid>
+                                </p:fieldset>
+                            </div>
+                        </sec:authorize>
+                    </div>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-4">
+                            <p:fieldset legend="Mais um menu " style="margin-bottom:20px">
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <p:graphicImage library="images" name="pessoas.png" />
+                                    <h:outputText value="Módulo 3" />
+                                </h:panelGrid>
+                            </p:fieldset>
+                        </div> 
+                        <div class="ui-grid-col-4">
+                            <p:fieldset legend="Mais um menu " style="margin-bottom:20px">
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <p:graphicImage library="images" name="pessoas.png" />
+                                    <h:outputText value="Módulo 4" />
+                                </h:panelGrid>
+                            </p:fieldset>
+                        </div>
+                        <div class="ui-grid-col-4">
+                            <p:fieldset legend="Mais um menu " style="margin-bottom:20px">
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <p:graphicImage library="images" name="pessoas.png" />
+                                    <h:outputText value="Módulo 5" />
+                                </h:panelGrid>
+                            </p:fieldset>
+                        </div>   
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </body>    
+</html>

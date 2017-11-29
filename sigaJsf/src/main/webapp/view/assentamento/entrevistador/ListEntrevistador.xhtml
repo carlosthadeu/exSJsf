@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <ui:composition template="/template/common/layoutPrincipal.xhtml">
+        <ui:define name="content">
+            <h:form id="FormEntrevistador" >
+                <p:panelGrid columns="2" >
+                    <f:facet name="header">
+                        <p:row>
+                            <p:column colspan="2">Entrevistador</p:column>
+                        </p:row>
+                    </f:facet>
+                    <p:outputLabel value="Nome" for="nome" />
+                    <p:inputText id="nome" value="#{entrevistadorController.paramNome}" title="Nome"/>
+                    <p:outputLabel value="CPF" for="cpf" />
+                    <p:inputText id="cpf" value="#{entrevistadorController.paramCpf}" title="CPF"/>
+                    <p:column/>
+                    <p:panelGrid columns="2">
+                        <p:commandButton action="#{entrevistadorController.performSearch}" icon="ui-icon-search"  ajax="true" update="@form" value="Pesquisar"/>
+                        <p:commandButton action="#{entrevistadorController.resetSearch}" value="Limpar campos" ajax="true" update="@form" icon="ui-icon-cancel"/>
+                    </p:panelGrid>
+                </p:panelGrid>
+
+                <p:dataTable var="item" value="#{entrevistadorController.items}" 
+                             rows="10" paginator="true"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="10,20,30"
+                             rowIndexVar="rowIx"
+                             rowStyleClass="#{empty rowIx or rowIx mod 2 eq 0 ? 'ui-datatable-even' : 'ui-datatable-odd'}"
+                             id="TabelaUsuarios">
+
+
+                    <p:column headerText="Nome" sortBy="#{item.nome}" width="30">
+                        <h:outputText value="#{item.nome}" />
+                    </p:column>
+                    <p:column headerText="Data de nascimento" sortBy="#{item.dataNascimento}" width="100">
+                        <h:outputText value="#{item.dataNascimento}"  >
+                            <f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Email"  width="100">
+                        <h:outputText value="#{item.email}" />
+                    </p:column>
+
+                    <p:column headerText="Ações" style="width:100px;text-align: center" width="20">
+                        <p:commandButton action="#{entrevistadorController.prepareView}" icon="ui-icon-search"  ajax="false"/>
+                        <p:commandButton action="#{entrevistadorController.prepareEdit}" icon="ui-icon-pencil" ajax="false"/>
+
+                        <p:commandButton action="#{sistemaController.destroy}" icon="ui-icon-trash" ajax="true">
+                            <p:confirm header="Confirmar exclusão de entrevistador" message="Deseja realmente excluir este entrevistador ?" icon="ui-icon-alert" />
+                        </p:commandButton>    
+
+
+
+
+                    </p:column >
+                    <f:facet name="footer">
+                        <p:commandButton action="#{entrevistadorController.prepareCreate}" icon="ui-icon-plus" value="Novo" ajax="false" />
+                        <p:button outcome="/faces/view/auth/moduloControleUsuario" value="Retornar ao menu do módulo" icon="ui-icon-script"></p:button>
+                    </f:facet>
+                </p:dataTable>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

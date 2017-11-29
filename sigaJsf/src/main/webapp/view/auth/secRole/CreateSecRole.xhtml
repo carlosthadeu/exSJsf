@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template/common/layoutPrincipal.xhtml">
+        <ui:define name="content">
+            
+            <h:form id="FormFuncionalidade">
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="Nome" for="nomeRole" />
+                    <p:inputText id="nomeRole" value="#{secRoleController.selected.authority}" title="Nome Role"  required="true" requiredMessage="Campo nome obrigatório !" size="200"/>
+                    
+                    <p:column/>
+                    <p:panelGrid columns="2">
+                        <p:commandButton action="#{secRoleController.create}" icon="ui-icon-disk"  ajax="false" value="Salvar"/>
+                        <p:commandButton action="#{secRoleController.prepareList}" value="Restornar a lista de roles" immediate="true" icon="ui-icon-arrowrefresh-1-w"  ajax="false"  />
+                    </p:panelGrid>
+                    
+                </p:panelGrid>
+                
+            </h:form>
+            
+        </ui:define>
+    </ui:composition>
+
+</html>

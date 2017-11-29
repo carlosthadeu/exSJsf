@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <ui:composition template="/template/common/layoutPrincipal.xhtml">
+        <ui:define name="content">
+            <h:form id="FormSecRole" >
+
+                <p:panelGrid columns="3" style="font-weight: bold; padding:75px" >
+                    <p:outputLabel style=" font-size: 250%;" value="Role: "/>
+                    <p:outputLabel style=" font-size: 250%;" value="#{secRoleController.selected.authority}"/>
+                    <p:commandButton action="#{secRoleController.prepareList}" icon=" ui-icon-arrowrefresh-1-w" value="Retornar à listagem de roles" ajax="false"/>
+                </p:panelGrid>    
+                <!-- 
+                                   Usuários que tem direitos às roles
+                -->                
+
+                <p:tabView cache="false">
+                    <p:tab title="Usuarios" id="tabUsuarios">
+                        <p:panelGrid columns="1" id="painelUsuario">
+                            <p:panelGrid columns="2" style="font-weight: bold;" id="PanelUsuario" >
+                                <p:outputLabel for="selectUsuario" value="Usuário" />
+                                <p:selectOneMenu id="selectUsuario" value="#{secRoleController.usuarioParaAdicionar}"  >
+                                    <p:ajax listener="#{secRoleController.onUsuarioChange}" update="PanelUsuario" />
+                                    <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                                    <f:selectItems value="#{secRoleController.listaUsuarios}" var="selecioneUsuario" itemLabel="#{selecioneUsuario.username}"  itemValue="#{selecioneUsuario}"  />
+                                </p:selectOneMenu>
+                                <p:outputLabel value="Nome:"/>
+                                <p:outputLabel value="#{secRoleController.nomeUsuarioParaAdicionar}"/>
+                                <p:outputLabel value="Sobrenome:"/>
+                                <p:outputLabel value="#{secRoleController.sobrenomeUsuarioParaAdicionar}"/>
+
+
+                                <p:commandButton action="#{secRoleController.adicionaUsuario}" icon="ui-icon-plus" value="Adicionar Usuário" ajax="true" update="painelUsuario" />
+
+
+
+                            </p:panelGrid>
+
+
+
+                            <p:dataTable var="usuario" value="#{secRoleController.listaUsuariosRole}" 
+                                         scrollable="true" scrollHeight="250"
+                                         rowIndexVar="rowIxUser"
+                                         rowStyleClass="#{empty rowIxUser or rowIxUser mod 2 eq 0 ? 'ui-datatable-even' : 'ui-datatable-odd'}"
+                                         id="TabelaUsuarios">
+
+
+                                <p:column headerText="Login" sortBy="#{usuario.username}" width="30">
+                                    <h:outputText value="#{usuario.username}" />
+                                </p:column>
+                                <p:column headerText="Nome" sortBy="#{usuario.primeiroNome}" width="100">
+                                    <h:outputText value="#{usuario.primeiroNome}" />
+                                </p:column>
+                                <p:column headerText="Sobrenome" sortBy="#{usuario.ultimoNome}" width="100">
+                                    <h:outputText value="#{usuario.ultimoNome}" />
+                                </p:column>
+                                <p:column headerText="Ativo ?" width="10" style="text-align:center">
+                                    <h:outputText value="#{usuario.enabled ? 'Sim' : 'Não'}" />
+                                </p:column>
+                                <p:column headerText="Senha Expirada ?" width="20" style="text-align:center">
+                                    <h:outputText value="#{usuario.passwordExpired ? 'Sim' : 'Não'}" />
+                                </p:column>
+
+                                <p:column headerText="Ações" style="width:100px;text-align: center">
+                                    <p:commandButton action="#{secRoleController.removeUsuario}" icon="ui-icon-trash"  update="TabelaUsuarios">
+                                        <f:setPropertyActionListener value="#{usuario}" target="#{secRoleController.selectedSecUser}" />
+                                        <p:confirm header="Confirmar exclusão" message="Quer realmente excluir o registro ?" icon="ui-icon-alert" />
+                                    </p:commandButton>
+
+                                </p:column >
+
+                            </p:dataTable>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            </p:confirmDialog>
+                        </p:panelGrid>
+                    </p:tab>
+                    <!-- 
+                                       Funcionalidades associadas às Roles
+                    -->    
+
+                    <p:tab title="Funcionalidades" id="tabFuncionalidade">
+                        <p:panelGrid columns="1" id="painelFuncionalidade">
+                            <p:panelGrid columns="2" style="font-weight: bold;" >
+                                <p:outputLabel for="selectSistema" value="Sistema" />
+                                <p:selectOneMenu id="selectSistema" value="#{secRoleController.paramSistema}"  >
+                                    <p:ajax listener="#{secRoleController.onSistemaChange}" update="selectModulo" />
+                                    <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                                    <f:selectItems value="#{secRoleController.listaSistemas}" var="selecioneSistema" itemLabel="#{selecioneSistema.sistema}"  itemValue="#{selecioneSistema}"  />
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="Módulo" for="selectModulo" />
+                                <p:selectOneMenu id="selectModulo" value="#{secRoleController.paramModulo}"  converter="generic"  >
+                                    <p:ajax listener="#{secRoleController.onModuloChange}" update="selectfuncionalidade" />
+                                    <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                                    <f:selectItems value="#{secRoleController.listaModulos}" var="selecioneModulo" itemLabel="#{selecioneModulo.modulo}"  itemValue="#{selecioneModulo}"  />
+                                </p:selectOneMenu>
+
+
+                                <p:outputLabel for="selectfuncionalidade" value="Funcionalidades: " />
+                                <p:selectOneMenu id="selectfuncionalidade" value="#{secRoleController.funcionalidadeParaAdicionar}"  >
+                                    <f:selectItem itemLabel="Selecione" itemValue=""/>
+                                    <f:selectItems value="#{secRoleController.listaFuncionalidades}" var="selecionefuncionalidades" itemLabel="#{selecionefuncionalidades.funcionalidade}"  itemValue="#{selecionefuncionalidades}"  />
+                                </p:selectOneMenu>
+
+
+
+                                <p:commandButton action="#{secRoleController.adicionaFuncionalidade}" icon="ui-icon-plus" value="Adicionar Funcionalidade" ajax="true" update="painelFuncionalidade" />
+
+
+
+                            </p:panelGrid>
+                            <p:dataTable var="funcionalidade" value="#{secRoleController.funcionalidades}" 
+                                         scrollable="true" scrollHeight="250"
+                                         rowIndexVar="rowIx"
+                                         rowStyleClass="#{empty rowIx or rowIx mod 2 eq 0 ? 'ui-datatable-even' : 'ui-datatable-odd'}"
+                                         id="TabelaFuncionalidades">
+
+
+                                <p:column headerText="Sistema">    
+                                    <h:outputText value="#{funcionalidade.modulo.sistema.sistema}" />
+                                </p:column>
+                                <p:column headerText="Módulo">    
+                                    <h:outputText value="#{funcionalidade.modulo.modulo}" />
+                                </p:column>
+                                <p:column headerText="Funcionalidade" >    
+                                    <h:outputText value="#{funcionalidade.funcionalidade}" />
+                                </p:column>
+                                <p:column headerText="Url" >    
+                                    <h:outputText value="#{funcionalidade.url}" />
+                                </p:column>
+
+                                <p:column headerText="Ações" style="width:100px;text-align: center">
+                                    <p:commandButton action="#{secRoleController.removeFuncionalidade}" icon="ui-icon-trash"  update="TabelaFuncionalidades">
+                                        <f:setPropertyActionListener value="#{funcionalidade}" target="#{secRoleController.selectedFuncionalidade}" />
+                                        <p:confirm header="Confirmar exclusão" message="Quer realmente excluir o registro ?" icon="ui-icon-alert" />
+                                    </p:commandButton>
+
+                                </p:column >
+
+                            </p:dataTable>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            </p:confirmDialog>
+                        </p:panelGrid>     
+                    </p:tab>
+                </p:tabView>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

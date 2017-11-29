@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <ui:composition template="/template/common/layoutPrincipal.xhtml">
+        <ui:define name="content">
+            <h:form id="FormFuncionalidade" >
+                <p:panelGrid columns="2" >
+                    <f:facet name="header">
+                        <p:row>
+                            <p:column colspan="2">Funcionalidades</p:column>
+                        </p:row>
+                    </f:facet>
+                    <p:outputLabel for="selectSistema" value="Sistema" />
+                    <p:selectOneMenu id="selectSistema" value="#{funcionalidadeController.paramSistema}"  >
+                        <p:ajax listener="#{funcionalidadeController.onSistemaChange}" update="selectModulo" />
+                        <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                        <f:selectItems value="#{funcionalidadeController.listaSistemas}" var="selecioneSistema" itemLabel="#{selecioneSistema.sistema}"  itemValue="#{selecioneSistema}"  />
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="Módulo" for="selectModulo" />
+                    <p:selectOneMenu id="selectModulo" value="#{funcionalidadeController.paramModulo}"  converter="generic"  >
+                        <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                        <f:selectItems value="#{funcionalidadeController.listaModulos}" var="selecioneModulo" itemLabel="#{selecioneModulo.modulo}"  itemValue="#{selecioneModulo}"  />
+                    </p:selectOneMenu>
+
+
+                    <p:outputLabel value="Nome" for="nome" />
+                    <p:inputText id="nome" value="#{funcionalidadeController.paramFuncionalidade}" title="Nome"/>
+
+                    <p:column/>
+                    <p:panelGrid columns="2">
+                        <p:commandButton action="#{funcionalidadeController.performSearch}" icon="ui-icon-search"  ajax="true" update="@form" value="Pesquisar"/>
+                        <p:commandButton action="#{funcionalidadeController.resetSearch}" value="Limpar campos" ajax="true" update="@form" icon="ui-icon-cancel"/>
+                    </p:panelGrid>
+                </p:panelGrid>
+
+                <p:dataTable var="item" value="#{funcionalidadeController.items}" 
+                             rows="10" paginator="true"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="10,20,30"
+                             rowIndexVar="rowIx"
+                             rowStyleClass="#{empty rowIx or rowIx mod 2 eq 0 ? 'ui-datatable-even' : 'ui-datatable-odd'}"
+                             id="TabelaUsuarios" >
+
+
+
+                    
+
+
+                    <p:column headerText="Sistema" groupRow="true" width="30">
+                        <h:outputText value="#{item.modulo.sistema.sistema}" />
+                    </p:column>
+                    <p:column headerText="Módulo"  width="100">
+                        <h:outputText value="#{item.modulo.modulo}" />
+                    </p:column>
+                    <p:column headerText="Funcionalidade"  width="100">
+                        <h:outputText value="#{item.funcionalidade}" />
+                    </p:column>
+                    <p:column headerText="URL"  width="100">
+                        <h:outputText value="#{item.url}" />
+                    </p:column>
+                    <p:column headerText="Ações" style="width:100px;text-align: center" width="20">
+                        <p:commandButton action="#{funcionalidadeController.prepareEdit}" icon="ui-icon-pencil" ajax="false"/>
+                        <p:commandButton action="#{funcionalidadeController.destroy}" icon="ui-icon-trash" ajax="true" update="TabelaUsuarios">
+                            <p:confirm header="Confirmar exclusão" message="Quer realmente excluir o registro ?" icon="ui-icon-alert" />
+                        </p:commandButton>
+
+
+
+                    </p:column >
+                    <f:facet name="footer">
+                        <p:commandButton action="#{funcionalidadeController.prepareCreate}" icon="ui-icon-plus" value="Novo" ajax="false" />
+                        <p:button outcome="/faces/view/auth/moduloControleUsuario" value="Retornar ao menu do módulo" icon="ui-icon-script"></p:button>
+
+                    </f:facet>
+                </p:dataTable>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

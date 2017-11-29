@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    
+
+    <ui:composition template="/template/common/layoutPrincipal.xhtml">
+        <ui:define name="content">
+            <h:form id="FormEstadoCivil" >
+                <f:facet name="header">
+                        <p:row>
+                            <p:column colspan="2">Tipos de Estado Civil</p:column>
+                        </p:row>
+                    </f:facet>
+              
+                
+                <p:dataTable var="item" value="#{estadoCivilController.items}" 
+                             rows="20" paginator="true"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="20,40,60"
+                             rowIndexVar="rowIx"
+                             rowStyleClass="#{empty rowIx or rowIx mod 2 eq 0 ? 'ui-datatable-even' : 'ui-datatable-odd'}"
+                             id="TabelaEstadoCivil">
+                    
+                    <p:column style="width:100px" headerText="Id" sortBy="#{item.id}">
+                        <h:outputText value="#{item.id}" />
+                    </p:column>
+                    <p:column headerText="Nome" sortBy="#{item.estadoCivil}">
+                        <h:outputText value="#{item.estadoCivil}" />
+                    </p:column>
+                    <p:column headerText="Ações" style="width:100px;text-align: center">
+                        <p:commandButton action="#{estadoCivilController.prepareView}" icon="ui-icon-search"  ajax="false"/>
+                        <p:commandButton action="#{estadoCivilController.prepareEdit}" icon="ui-icon-pencil" ajax="false"/>
+                        <p:commandButton action="#{estadoCivilController.destroy}" icon="ui-icon-trash" ajax="false">
+                            <p:confirm header="Confirmar exclusão" message="Quer realmente excluir o tipo de estadoCivil ?" icon="ui-icon-alert" />
+                        </p:commandButton>
+                    </p:column >
+                    <f:facet name="footer">
+                        <p:commandButton action="#{estadoCivilController.prepareCreate}" icon="ui-icon-plus" value="Novo" ajax="false" />
+                        
+                        <p:button outcome="/faces/view/pessoa/moduloPessoa.xhtml" value="Retornar ao menu do módulo" icon="ui-icon-script"></p:button>
+                    </f:facet>
+                </p:dataTable>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

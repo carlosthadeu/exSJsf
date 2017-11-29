@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <ui:composition template="/template/common/layoutPrincipal.xhtml">
+        <ui:define name="content">
+            <h:form id="FormSistemas" >
+                <p:dataTable var="item" value="#{sistemaController.items}" 
+                                 rows="10" paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="10,20,30"
+                                 rowIndexVar="rowIx"
+                                 rowStyleClass="#{empty rowIx or rowIx mod 2 eq 0 ? 'ui-datatable-even' : 'ui-datatable-odd'}"
+                                 id="TabelaUsuarios">
+                    <p:column headerText="Login" sortBy="#{item.sistema}" width="30">
+                        <h:outputText value="#{item.sistema}" />
+                    </p:column>
+                    <p:column headerText="Ações" style="width:100px;text-align: center" width="20">
+                        <p:commandButton action="#{sistemaController.prepareView}" icon="ui-icon-search"  ajax="false"/>
+                        <p:commandButton action="#{sistemaController.prepareEdit}" icon="ui-icon-pencil" ajax="false"/>
+                        <p:commandButton action="#{sistemaController.destroy}" icon="ui-icon-trash" ajax="true">
+                            <p:confirm header="Confirmar exclusão de sistema" message="Deseja realmente excluir este sistema ?" icon="ui-icon-alert" />
+                        </p:commandButton>
+                    </p:column >
+                    <f:facet name="footer">
+                        <p:commandButton action="#{sistemaController.prepareCreate}" icon="ui-icon-plus" value="Novo" ajax="false" />
+                        <p:button outcome="/faces/view/auth/moduloControleUsuario" value="Retornar ao menu do módulo" icon="ui-icon-script"></p:button>
+                    </f:facet>
+                </p:dataTable>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

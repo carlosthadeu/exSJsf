@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <ui:composition template="/template/common/layoutPrincipal.xhtml">
+        <ui:define name="content">
+            <h:form id="FormFamilia" >
+                <p:panelGrid columns="2" >
+                    <f:facet name="header">
+                        <p:row>
+                            <p:column colspan="2">Famílias</p:column>
+                        </p:row>
+                    </f:facet>
+                    <p:outputLabel value="Nome" for="nome" />
+                    <p:inputText id="nome" value="#{familiaController.paramAssentado}" title="Nome"/>
+                    <p:outputLabel value="Incluir famílias que desistiram ?" for="desistencia" />
+                    <p:selectOneRadio id="desistencia" value="#{familiaController.incluirDesistencia}" columns="2" >
+                        <f:selectItem itemLabel="Sim" itemValue="true" />
+                        <f:selectItem itemLabel="Não" itemValue="false" />
+                    </p:selectOneRadio>
+                    
+                    <p:column/>
+                    <p:panelGrid columns="2">
+                        <p:commandButton action="#{familiaController.performSearch}" icon="ui-icon-search"  ajax="true" update="@form" value="Pesquisar"/>
+                        <p:commandButton action="#{familiaController.resetSearch}" value="Limpar campos" ajax="true" update="@form" icon="ui-icon-cancel"/>
+                    </p:panelGrid>
+                </p:panelGrid>
+
+                <p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
+                <p:dataTable var="item" value="#{familiaController.items}" 
+                             rows="20" paginator="true"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="20,40,60"
+                             rowIndexVar="rowIx"
+                             rowStyleClass="#{empty rowIx or rowIx mod 2 eq 0 ? 'ui-datatable-even' : 'ui-datatable-odd'}"
+                             id="TabelaFamilia">
+
+
+                    <p:column headerText="Código" sortBy="#{item.codigoFamilia}">
+                        <h:outputText value="#{item.codigoFamilia}" />
+                    </p:column>
+                    <p:column headerText="Assentado" sortBy="#{item.casais.principal.nome}">
+                        <h:outputText value="#{item.item.casais.principal.nome}" />
+                    </p:column>
+                    <p:column headerText="Conjuge" sortBy="#{(item.casais.conjuge== null) ? 'Sem conjuge' : item.casais.conjuge.nome}">
+                        <h:outputText value="#{item.item.casais.conjuge.nome}" />
+                    </p:column>                    
+                    <p:column headerText="Ações" style="width:100px;text-align: center">
+                        <p:commandButton action="#{familiaController.prepareView}" icon="ui-icon-search"  ajax="false"/>
+                        <p:commandButton action="#{familiaController.prepareEdit}" icon="ui-icon-pencil" ajax="false"/>
+                    </p:column >
+                    <f:facet name="footer">
+                        <p:commandButton action="#{familiaController.prepareCreate}" icon="ui-icon-plus" value="Novo" ajax="false" />
+                        <p:commandButton actionListener="#{familiaController.destroyList}" icon="ui-icon-trash" value="Excluir" update="TabelaFamilia">
+                            <p:confirm header="Confirmar exclusão" message="Quer realmente excluir o registro ?" icon="ui-icon-alert" />
+                        </p:commandButton>
+                        <p:commandButton action="#{assentamentoController.prepareList()}" icon="ui-icon-script" value="Retornar a listagem de assentamentos" ajax="false" />
+                    </f:facet>
+                </p:dataTable>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

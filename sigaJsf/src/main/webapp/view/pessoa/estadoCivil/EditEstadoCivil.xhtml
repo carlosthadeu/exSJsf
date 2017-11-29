@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template/common/layoutPrincipal.xhtml">
+        <ui:define name="content">
+            <h:form>
+                <p:panelGrid columns="2">
+                    <f:facet name="header">
+                        <p:row>
+                            <p:column colspan="2">Editar tipos de EstadoCivil</p:column>
+                        </p:row>
+                    </f:facet>
+                    <p:outputLabel value="Tipo de Estado Civil" for="tipoAss" />
+                    <p:inputText id="tipoAss" value="#{estadoCivilController.selected.estadoCivil}" size="50" title="Tipo de EstadoCivil" required="true" />
+                    <p:column/>
+                    <p:panelGrid columns="2">
+                        <p:commandButton action="#{estadoCivilController.update}" icon="ui-icon-disk"  ajax="false" value="Salvar"/>
+                        <p:commandButton action="#{estadoCivilController.prepareList}" value="Cancelar" immediate="true" icon="ui-icon-cancel"  ajax="false" />
+                    </p:panelGrid>
+
+                </p:panelGrid>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
