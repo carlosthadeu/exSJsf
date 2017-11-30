@@ -81,9 +81,21 @@
         </dependency>
     </dependencies>
     <repositories>
-        <repository>
-            <id>idace-group</id>
-            <url>http://172.28.1.30:8081/nexus/repository/idace-group/</url>
+            <repository>
+      <id>central</id>
+      <name>Maven Repository Switchboard</name>
+      <layout>default</layout>
+      <url>http://repo1.maven.org/maven2</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+
+<repository>
+            <id>prime-repo</id>
+            <name>PrimeFaces Maven Repository</name>
+            <url>https://repository.primefaces.org</url>
+            <layout>default</layout>
         </repository>
 
         <repository>
@@ -97,16 +109,7 @@
         </repository>
 
     </repositories>
-    <distributionManagement>
-        <snapshotRepository>
-            <id>idace-snapshots</id>
-            <url>http://172.28.1.30:8081/nexus/repository/idace-snapshots/</url>
-        </snapshotRepository>
-        <repository>
-            <id>idace-releases</id>
-            <url>http://172.28.1.30:8081/nexus/repository/idace-releases/</url>
-        </repository>
-    </distributionManagement>
+    
     <build>
         <plugins>
             <plugin>
