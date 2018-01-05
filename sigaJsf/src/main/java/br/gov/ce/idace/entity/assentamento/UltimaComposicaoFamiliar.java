@@ -8,39 +8,36 @@ package br.gov.ce.idace.entity.assentamento;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
+import jdk.nashorn.internal.ir.annotations.Immutable;
 
 /**
  *
  * @author carlos.santos
  */
 @Entity
-@Table(name="casal", schema="assentamento")
-public class Casal implements Serializable {
+@Immutable
+@Table(name = "vw_ultimas_conformacoes_casal", schema ="assentamento")
+@NamedNativeQueries({ @NamedNativeQuery( name = "ListaUltimasComposicoes", query = "select * from assentamento.vw_ultimas_conformacoes_casal ", resultClass = UltimaComposicaoFamiliar.class)})
+public class UltimaComposicaoFamiliar implements Serializable {
 
-    private static final long serialVersionUID = -2390530867125490425L;
-    
+    private static final long serialVersionUID = 8537896141457858622L;
+        
     @Id    
-    @SequenceGenerator(name="casal_seq", allocationSize = 1, sequenceName="seq_casal", schema = "assentamento")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE ,generator="casal_seq")
-    @Basic(optional = false)
     @Column(name = "id")
     private Long id;
     
     @ManyToOne
     @JoinColumn(name="assentado_principal_id")
-    @NotNull
     private Assentado principal;
     
     @ManyToOne
@@ -49,19 +46,37 @@ public class Casal implements Serializable {
     
     @ManyToOne
     @JoinColumn(name="familia_id")
-    @NotNull
     private Familia familia;
     
     @Column(name="data_conformacao")
     @Temporal(javax.persistence.TemporalType.DATE)
-    @NotNull
     private Date  dataConformacao;
     
     @Column(name="motivo_alteracao_casal")
-    @NotNull
     private MotivoAlteracaoCasal motivoAlteracaoCasal;
+    
+    @Column(name="codigo_assentamento")
+    private String codigoAssentamento;
+    
+    @Column(name="nome_assentamento")
+    private String nomeAssentamento;
+    
+    @Column(name="cpf_principal")
+    private String cpfPrincipal;
+    
+    @Column(name="nome_principal")
+    private String nomePrincipal;
+    
+    @Column(name="cpf_conjuge")
+    private String cpfConjuge;
+    
+    @Column(name="nome_conjuge")
+    private String nomeConjuge;
+    
+    @Column(name="codigo_familia")
+    private String codigoFamilia;
 
-    public Casal() {
+    public UltimaComposicaoFamiliar() {
     }
 
     public Long getId() {
@@ -112,6 +127,34 @@ public class Casal implements Serializable {
         this.motivoAlteracaoCasal = motivoAlteracaoCasal;
     }
 
+    public String getCodigoAssentamento() {
+        return codigoAssentamento;
+    }
+
+    public String getNomeAssentamento() {
+        return nomeAssentamento;
+    }
+
+    public String getCpfPrincipal() {
+        return cpfPrincipal;
+    }
+
+    public String getNomePrincipal() {
+        return nomePrincipal;
+    }
+
+    public String getCpfConjuge() {
+        return cpfConjuge;
+    }
+
+    public String getNomeConjuge() {
+        return nomeConjuge;
+    }
+
+    public String getCodigoFamilia() {
+        return codigoFamilia;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 5;
@@ -130,13 +173,12 @@ public class Casal implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Casal other = (Casal) obj;
+        final UltimaComposicaoFamiliar other = (UltimaComposicaoFamiliar) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
     }
-    
     
     
 }

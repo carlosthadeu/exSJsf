@@ -29,6 +29,8 @@ import javax.inject.Named;
 @SessionScoped
 public class EstadoCivilController implements Serializable {
 
+    private static final long serialVersionUID = -3733292058759178749L;
+
     @EJB
     private EstadoCivilFacade ejbFacade;
     @EJB
@@ -116,7 +118,7 @@ public class EstadoCivilController implements Serializable {
 
     public String destroy() {
         current = (EstadoCivil) getItems().getRowData();
-        if (!assentadoFacade.findAssentadosByEstadoCivil(current).isEmpty()) {
+        if (!assentadoFacade.findAssentadosByEstadoCivil(current)) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro: ", "Não é possível excluir o estado civil pois há assentados associados à ele. Exclua os assentados antes de excluir o estado civil !"));
             current = null;
             return "ListEstadoCivil";

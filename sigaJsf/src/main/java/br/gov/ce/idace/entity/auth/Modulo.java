@@ -43,7 +43,8 @@ import org.hibernate.annotations.Cascade;
 })
 public class Modulo implements Serializable, SampleEntity {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 5409872400737403403L;
+    
     @Id
     @SequenceGenerator(name="modulo_seq", allocationSize = 1, sequenceName = "modulo_id_seq", schema = "public")
     @GeneratedValue( strategy = GenerationType.SEQUENCE, generator = "modulo_seq")

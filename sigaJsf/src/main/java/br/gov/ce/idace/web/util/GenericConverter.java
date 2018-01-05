@@ -1,4 +1,5 @@
-import br.gov.ce.idace.web.util.SampleEntity;
+package br.gov.ce.idace.web.util;
+
 import java.io.Serializable;
 import java.util.Map;
 
@@ -11,6 +12,9 @@ import javax.faces.convert.FacesConverter;
 
 @FacesConverter("generic")
 public class GenericConverter implements Converter,Serializable{
+
+    private static final long serialVersionUID = -5155708922125104963L;
+    
     public Object getAsObject(FacesContext ctx, UIComponent component, String value) {
         if (value != null) {
             return this.getAttributesFrom(component).get(value);

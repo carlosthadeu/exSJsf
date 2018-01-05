@@ -29,6 +29,8 @@ import javax.inject.Named;
 @SessionScoped
 public class EscolaridadeController implements Serializable {
 
+    private static final long serialVersionUID = 9185946508423718306L;
+
     @EJB
     private EscolaridadeFacade ejbFacade;
     @EJB
@@ -116,7 +118,7 @@ public class EscolaridadeController implements Serializable {
 
     public String destroy() {
         current = (Escolaridade) getItems().getRowData();
-        if (!assentadoFacade.findAssentadosByEscolaridade(current).isEmpty()) {
+        if (!assentadoFacade.findAssentadosByEscolaridade(current)) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro: ", "Não é possível excluir a escolaridade pois há assentados associados à ela. Exclua os assentados antes de excluir a escolaridade !"));
             current = null;
             return "ListEscolaridade";

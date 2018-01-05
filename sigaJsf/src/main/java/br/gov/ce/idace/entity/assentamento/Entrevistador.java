@@ -23,11 +23,11 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name="entrevistador",schema = "assentamento",uniqueConstraints = @UniqueConstraint(name = "unq_cpf_entrevistador", columnNames = {"cpf"}))
-@AttributeOverrides({@AttributeOverride(name="cpf", column = @Column(nullable = false))})
+    @AttributeOverrides({@AttributeOverride(name = "cpf", column = @Column(nullable = false)), @AttributeOverride(name = "nome", column = @Column(nullable = false) )})
 public class Entrevistador extends PessoaFisica{
-    
-    private static final long serialVersionUID = 1L;
 
+    private static final long serialVersionUID = -915584995167248195L;
+    
     public Entrevistador() {
     }
     
@@ -62,7 +62,7 @@ public class Entrevistador extends PessoaFisica{
 
     @Override
     public String toString() {
-        return getNome();
+        return getCpf();
     }
     
 }

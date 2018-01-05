@@ -47,7 +47,7 @@ public class MunicipioFacade extends AbstractFacade<Municipio> {
     }
     
     public List<Municipio> FindByUf(String codUf) {
-        TypedQuery<Municipio> query = em.createQuery("select m from Municipio m where m.idUf =:idUf", Municipio.class);
+        TypedQuery<Municipio> query = em.createQuery("select m from Municipio m where m.idUf =:idUf  order by m.geocodigo", Municipio.class);
         query.setParameter("idUf", codUf);
         return query.getResultList();
     }

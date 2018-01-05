@@ -38,7 +38,8 @@ import javax.validation.constraints.Size;
 
 public class Funcionalidade implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 8860215199895423511L;
+    
     @Id
     @SequenceGenerator(name="funcionalidade_seq", allocationSize = 1, sequenceName = "funcionalidade_id_seq", schema = "public" )
     @GeneratedValue( strategy= GenerationType.SEQUENCE, generator = "funcionalidade_seq" ) 

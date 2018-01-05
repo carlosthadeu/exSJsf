@@ -29,6 +29,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Named("changePasswordController")
 @SessionScoped
 public class ChangePasswordController implements Serializable {
+
+    private static final long serialVersionUID = 8605301268608799023L;
     
     @EJB
     private SecUserFacade ejbUserFacade;

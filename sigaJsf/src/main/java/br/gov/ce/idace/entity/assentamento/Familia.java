@@ -7,11 +7,8 @@ package br.gov.ce.idace.entity.assentamento;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
+import javax.persistence.Basic;import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,7 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -33,6 +30,9 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "familia", schema="assentamento", uniqueConstraints = @UniqueConstraint(name = "unq_codigo", columnNames = {"codigo"}))
 public class Familia implements Serializable {
+
+    private static final long serialVersionUID = 7571763419342308758L;
+    
     @Id    
     @SequenceGenerator(name="familia_seq", allocationSize = 1, sequenceName="seq_familia", schema = "assentamento")
     @GeneratedValue(strategy = GenerationType.SEQUENCE ,generator="familia_seq")
@@ -41,7 +41,7 @@ public class Familia implements Serializable {
     private Long id;
     
     @Column(name = "codigo")
-    @Size(min = 14, max = 14)
+    @Size(min = 3, max = 14)
     private String codigo;
     
     @Column(name="data_desistencia")
@@ -52,8 +52,8 @@ public class Familia implements Serializable {
     @JoinColumn(name="assentamento_id")
     private Assentamento assentamento;
     
-    @OneToMany(mappedBy = "familia", targetEntity = Casal.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Casal> casais;
+    @OneToOne(mappedBy = "familia", fetch = FetchType.LAZY)
+    private UltimaComposicaoFamiliar ultimaConformacaoCasal;
  
 
     public Familia() {
@@ -91,10 +91,14 @@ public class Familia implements Serializable {
         this.assentamento = assentamento;
     }
 
-    public List<Casal> getCasais() {
-        return casais;
-    }        
+    
 
+    public UltimaComposicaoFamiliar getUltimaConformacaoCasal() {
+        return ultimaConformacaoCasal;
+    }
+
+    
+    
     @Override
     public int hashCode() {
         int hash = 5;

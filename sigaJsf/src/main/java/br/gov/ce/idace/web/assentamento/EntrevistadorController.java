@@ -12,7 +12,6 @@ import br.gov.ce.idace.session.assentamento.EntrevistadorFacade;
 import br.gov.ce.idace.web.util.Validadores;
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
@@ -33,6 +32,8 @@ import javax.inject.Named;
 @Named("entrevistadorController")
 @SessionScoped
 public class EntrevistadorController implements Serializable {
+
+    private static final long serialVersionUID = 2825982106537381922L;
 
     @EJB
     private EntrevistadorFacade ejbFacade;

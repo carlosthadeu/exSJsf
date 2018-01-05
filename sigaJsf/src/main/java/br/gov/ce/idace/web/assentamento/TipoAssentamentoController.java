@@ -31,6 +31,9 @@ import javax.inject.Named;
 @Named("tipoAssentamentoController")
 @SessionScoped
 public class TipoAssentamentoController implements Serializable {
+
+    private static final long serialVersionUID = -9013032293506089878L;
+    
     @EJB
     private TipoAssentamentoFacade ejbFacade;
     private DataModel items;

@@ -34,6 +34,8 @@ import javax.inject.Named;
 @Named("funcionalidadeController")
 @SessionScoped
 public class FuncionalidadeController implements Serializable {
+
+    private static final long serialVersionUID = -1435135600592343015L;
     
     @EJB
     private FuncionalidadeFacade ejbFacade;
@@ -91,9 +93,7 @@ public class FuncionalidadeController implements Serializable {
     }   
 
     public List<Sistema> getListaSistemas() {
-        if (listaSistemas == null){
-            listaSistemas = ejbSistemaFacade.findAll();
-        }
+        listaSistemas = ejbSistemaFacade.findAll();
         return listaSistemas;
     }
 

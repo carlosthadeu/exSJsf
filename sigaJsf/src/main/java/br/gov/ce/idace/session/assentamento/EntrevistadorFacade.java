@@ -12,6 +12,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -33,4 +34,19 @@ public class EntrevistadorFacade extends AbstractFacade<Entrevistador> {
         super(Entrevistador.class);
     }
     
+    public List<Entrevistador> findEntrevistadorOrderByNome(){
+        TypedQuery<Entrevistador> query = em.createQuery("select e from Entrevistador e order by e.nome",Entrevistador.class);
+        return query.getResultList();
+    }
+    
+    public Entrevistador findByCpf(String cpf){
+        TypedQuery<Entrevistador> query = em.createQuery("select e from Entrevistador e where e.cpf = :cpf",Entrevistador.class);
+        query.setParameter("cpf", cpf);
+        return query.getSingleResult();
+    }
+    public String FindNomeByObjeto(Entrevistador entrevistador) {
+        Query query = em.createQuery("select e.nome from Entrevistador e where e =:entrevistador");
+        query.setParameter("entrevistador", entrevistador);
+        return (String) query.getSingleResult();
+    }
 }

@@ -33,6 +33,8 @@ import javax.inject.Named;
 @SessionScoped
 public class SistemaController implements Serializable {
 
+    private static final long serialVersionUID = -5273911556285279366L;
+
     @EJB
     private SistemaFacade ejbFacade;
     @EJB

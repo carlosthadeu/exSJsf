@@ -31,9 +31,8 @@ import org.hibernate.annotations.Formula;
 @Entity
 @Table(name="assentamento", schema="assentamento", uniqueConstraints = {@UniqueConstraint(name = "unq_codigo", columnNames = {"codigo"})})
 public class Assentamento implements Serializable {
-    
-    private static final long serialVersionUID = 1L;
-    
+
+    private static final long serialVersionUID = -5796372744281277826L;
     
     @Id    
     @SequenceGenerator(name="assentamento_seq", allocationSize = 1, sequenceName="seq_assentamento", schema = "assentamento")
@@ -58,8 +57,7 @@ public class Assentamento implements Serializable {
     @Column(name = "area", precision = 6, scale = 2)
     private Double area;
     
-    @Formula(value =  "(select count(*) from Familia f where f.assentamento.id = id)")
-    @Transient
+    @Formula(value =  "(select count(*) from assentamento.familia f where f.assentamento_id = id )")
     private Integer quantidadeFamilias;
     
     @Column(name = "tipo_aquisicao_assentamento")

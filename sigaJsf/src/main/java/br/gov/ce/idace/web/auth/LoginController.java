@@ -20,6 +20,8 @@ import javax.inject.Named;
 
 public class LoginController implements Serializable {
 
+    private static final long serialVersionUID = 3920307229171899090L;
+
     public LoginController() {
     }
     

@@ -12,7 +12,9 @@ import br.gov.ce.idace.session.AbstractFacade;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -33,15 +35,18 @@ public class AssentadoFacade extends AbstractFacade<Assentado> {
         super(Assentado.class);
     }
     
-    public List<Assentado> findAssentadosByEscolaridade(Escolaridade escolaridade){
-        TypedQuery query = em.createQuery("select a from Assentado a where a.escolaridade = :escolaridade", Assentado.class);
+    public Boolean findAssentadosByEscolaridade(Escolaridade escolaridade){
+        Query query = em.createQuery("select count(*) from Assentado a where a.escolaridade = :escolaridade");
         query.setParameter("escolaridade", escolaridade);
-        return query.getResultList();
+        Integer qtd = (Integer) query.getSingleResult();
+        return qtd >0;
     }
     
-    public List<Assentado> findAssentadosByEstadoCivil(EstadoCivil estadoCivil){
-        TypedQuery query = em.createQuery("select a from Assentado a where a.estadoCivil = :estadoCivil", Assentado.class);
+    public Boolean findAssentadosByEstadoCivil(EstadoCivil estadoCivil){
+        Query query = em.createQuery("select count(*) from Assentado a where a.estadoCivil = :estadoCivil");
         query.setParameter("estadoCivil", estadoCivil);
-        return query.getResultList();
+        Integer qtd = (Integer) query.getSingleResult();
+        return qtd >0;
     }
+    
 }

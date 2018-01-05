@@ -32,6 +32,8 @@ import javax.inject.Named;
 @SessionScoped
 public class SetoresController implements Serializable {
 
+    private static final long serialVersionUID = 329447563484909900L;
+
     private Setores current;
     private DataModel items = null;
     @EJB

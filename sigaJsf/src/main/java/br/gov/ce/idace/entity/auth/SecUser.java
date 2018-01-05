@@ -31,8 +31,7 @@ import javax.validation.constraints.Size;
 
 public class SecUser implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    
+    private static final long serialVersionUID = 8127476623202564090L;
     
     @Id    
     @SequenceGenerator(name="user_seq", allocationSize = 1, sequenceName="seq_sec_user", schema = "public")

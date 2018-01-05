@@ -40,6 +40,9 @@ import javax.inject.Named;
 @Named("secRoleController")
 @SessionScoped
 public class SecRoleController  implements Serializable  {
+
+    private static final long serialVersionUID = 5711088701497112203L;
+    
     @EJB
     private SecRoleFacade ejbFacade;
     @EJB

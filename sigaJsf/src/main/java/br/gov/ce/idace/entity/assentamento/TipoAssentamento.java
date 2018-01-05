@@ -30,6 +30,8 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "tipo_assentamento", schema = "assentamento", uniqueConstraints = {@UniqueConstraint(name = "unq_tipo_assentamento", columnNames = {"tipo_assentamento"})})
 public class TipoAssentamento implements Serializable{
+
+    private static final long serialVersionUID = -618663770496664136L;
     
     @Id    
     @SequenceGenerator(name="tipo_assentamento_seq", allocationSize = 1, sequenceName="seq_tipo_assentamento", schema = "assentamento")

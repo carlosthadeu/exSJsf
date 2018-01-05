@@ -35,6 +35,8 @@ import org.hibernate.annotations.FetchMode;
 @Table(name = "sec_role", schema = "public", uniqueConstraints = @UniqueConstraint(name = "unq_authority", columnNames = {"authority"}))
 public class SecRole implements Serializable {
 
+    private static final long serialVersionUID = 4284490795118304958L;
+
     @Id    
     @SequenceGenerator(name="role_seq", allocationSize = 1, sequenceName="seq_sec_role", schema = "public")
     @GeneratedValue(strategy = GenerationType.SEQUENCE ,generator="role_seq")

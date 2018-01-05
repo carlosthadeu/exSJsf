@@ -29,8 +29,10 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name="assentado",schema = "assentamento", uniqueConstraints = @UniqueConstraint(name = "unq_cpf_assentado", columnNames = {"cpf"}))
-@AttributeOverrides({@AttributeOverride(name="cpf", column = @Column(nullable = false))})
+@AttributeOverrides({@AttributeOverride(name="cpf", column = @Column(nullable = false)),@AttributeOverride(name="nome", column = @Column(nullable = false))})
 public class Assentado extends PessoaFisica{
+
+    private static final long serialVersionUID = -7987460978784271314L;
     
     @Column(name="estuda")
     private Boolean estuda;
@@ -70,36 +72,6 @@ public class Assentado extends PessoaFisica{
      */
     @Column(name="ex_ben_prog_nac_ref_agra")
     private Boolean exBenProgNacRefAgra;
-    
-    /**
-     * Item 04 da seção 04 - Outras informações da unidade familiar do formulário: É trabalhador rural assalariado, posseiro, parceiro, arrendatário, foreiro ou sem terra  ?
-     */
-    @Column(name="trab_rur_ass_pos_parc_arred_for_sem_ter")
-    private TrabRurAssPosParcArredForSemTer trabRurAssPosParcArredForSemTer;
-    
-    /**
-     * Item 04 da seção 04 - Outras informações da unidade familiar do formulário: Há quanto tempo mora  ? (Anos)
-     */
-    @Column(name="anos_qto_tempo_mora")
-    private Integer anosQtoTempoMora;
-    
-    /**
-     * Item 04 da seção 04 - Outras informações da unidade familiar do formulário: Há quanto tempo mora  ? (Meses)
-     */
-    @Column(name="meses_qto_tempo_mora")
-    private Integer mesesQtoTempoMora;
-    
-    /**
-     * Item 05 da seção 04 - Nos últimos 5 anos, quanto tempo trabalha na atividade agrícola  ? (Anos)
-     */
-    @Column(name="anos_tmp_trab_ativ_agri")
-    private Integer anosTmpTrabAtivAgri;
-    
-    /**
-     * Item 05 da seção 04 - Nos últimos 5 anos, quanto tempo trabalha na atividade agrícola  ? (Meses)
-     */
-    @Column(name="meses_tmp_trb_ativ_agri")
-    private Integer mesesTmpTrbAtivAgri;
     
     @ManyToOne
     @JoinColumn(name="estado_civil_id")
@@ -182,46 +154,6 @@ public class Assentado extends PessoaFisica{
 
     public void setExBenProgNacRefAgra(Boolean exBenProgNacRefAgra) {
         this.exBenProgNacRefAgra = exBenProgNacRefAgra;
-    }
-
-    public TrabRurAssPosParcArredForSemTer getTrabRurAssPosParcArredForSemTer() {
-        return trabRurAssPosParcArredForSemTer;
-    }
-
-    public void setTrabRurAssPosParcArredForSemTer(TrabRurAssPosParcArredForSemTer trabRurAssPosParcArredForSemTer) {
-        this.trabRurAssPosParcArredForSemTer = trabRurAssPosParcArredForSemTer;
-    }
-
-    public Integer getAnosQtoTempoMora() {
-        return anosQtoTempoMora;
-    }
-
-    public void setAnosQtoTempoMora(Integer anosQtoTempoMora) {
-        this.anosQtoTempoMora = anosQtoTempoMora;
-    }
-
-    public Integer getMesesQtoTempoMora() {
-        return mesesQtoTempoMora;
-    }
-
-    public void setMesesQtoTempoMora(Integer mesesQtoTempoMora) {
-        this.mesesQtoTempoMora = mesesQtoTempoMora;
-    }
-
-    public Integer getAnosTmpTrabAtivAgri() {
-        return anosTmpTrabAtivAgri;
-    }
-
-    public void setAnosTmpTrabAtivAgri(Integer anosTmpTrabAtivAgri) {
-        this.anosTmpTrabAtivAgri = anosTmpTrabAtivAgri;
-    }
-
-    public Integer getMesesTmpTrbAtivAgri() {
-        return mesesTmpTrbAtivAgri;
-    }
-
-    public void setMesesTmpTrbAtivAgri(Integer mesesTmpTrbAtivAgri) {
-        this.mesesTmpTrbAtivAgri = mesesTmpTrbAtivAgri;
     }
 
     public EstadoCivil getEstadoCivil() {

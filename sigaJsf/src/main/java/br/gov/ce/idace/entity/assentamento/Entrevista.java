@@ -5,6 +5,7 @@
  */
 package br.gov.ce.idace.entity.assentamento;
 
+import br.gov.ce.idace.core.entity.ibge.Municipio;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -31,6 +32,8 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name="entrevista", schema = "assentamento")
 public class Entrevista implements Serializable{
+
+    private static final long serialVersionUID = 4136532949238250030L;
     
     @Id    
     @SequenceGenerator(name="entrevista_seq", allocationSize = 1, sequenceName="seq_entrevista", schema = "assentamento")
@@ -47,15 +50,15 @@ public class Entrevista implements Serializable{
     @JoinColumn(name="familia_id")
     private Familia familia;
     
-    @Column(name="ano_referencia")
-    @NotNull
-    private Integer anoReferencia;
+   
     
     @Column(name = "data_entrevista")
     @NotNull
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataEntrevista;
     
+    @Column(name = "situacao_conjugal")
+    private SituacaoConjugal situacaoConjugal;
     /**
      * Item 01 da seção 04 - Faz parte de acampamento de trabalhadores rurais, terra indígena ou outra comunidade social ?
      */
@@ -88,8 +91,59 @@ public class Entrevista implements Serializable{
     @Column(name="mora_mun_imo_obt")
     private Boolean moraMunImoObt;
     
+    /**
+     * Item 04 da seção 04 - Outras informações da unidade familiar do formulário: É trabalhador rural assalariado, posseiro, parceiro, arrendatário, foreiro ou sem terra  ?
+     */
+    @Column(name="trab_rur_ass_pos_parc_arred_for_sem_ter")
+    private TrabRurAssPosParcArredForSemTer trabRurAssPosParcArredForSemTer;
     
+    /**
+     * Item 04 da seção 04 - Outras informações da unidade familiar do formulário: Há quanto tempo mora  ? (Anos)
+     */
+    @Column(name="anos_qto_tempo_mora")
+    private Integer anosQtoTempoMora;
+    
+    /**
+     * Item 04 da seção 04 - Outras informações da unidade familiar do formulário: Há quanto tempo mora  ? (Meses)
+     */
+    @Column(name="meses_qto_tempo_mora")
+    private Integer mesesQtoTempoMora;
+    
+    /**
+     * Item 05 da seção 04 - Nos últimos 5 anos, quanto tempo trabalha na atividade agrícola  ? (Anos)
+     */
+    @Column(name="anos_tmp_trab_ativ_agri")
+    private Integer anosTmpTrabAtivAgri;
+    
+    /**
+     * Item 05 da seção 04 - Nos últimos 5 anos, quanto tempo trabalha na atividade agrícola  ? (Meses)
+     */
+    @Column(name="meses_tmp_trb_ativ_agri")
+    private Integer mesesTmpTrbAtivAgri;
+    
+    /**
+     * Item 01 da seção 05 - Município de moradia
+     */
+    @ManyToOne
+    @JoinColumn(name="municipio_moradia_id")
+    private Municipio municipioMoradia;
+    
+    @Column(name="ddd_contato")
+    @Size(max=2)
+    private String dddContato;
+    
+    @Column(name="telefone_contato")
+    @Size(max=9)
+    private String telefoneContato;
 
+    public SituacaoConjugal getSituacaoConjugal() {
+        return situacaoConjugal;
+    }
+
+    public void setSituacaoConjugal(SituacaoConjugal situacaoConjugal) {
+        this.situacaoConjugal = situacaoConjugal;
+    }
+    
     public Long getId() {
         return id;
     }
@@ -114,13 +168,7 @@ public class Entrevista implements Serializable{
         this.familia = familia;
     }
 
-    public Integer getAnoReferencia() {
-        return anoReferencia;
-    }
-
-    public void setAnoReferencia(Integer anoReferencia) {
-        this.anoReferencia = anoReferencia;
-    }
+    
 
     public Date getDataEntrevista() {
         return dataEntrevista;
@@ -169,6 +217,71 @@ public class Entrevista implements Serializable{
     public void setMoraMunImoObt(Boolean moraMunImoObt) {
         this.moraMunImoObt = moraMunImoObt;
     }
+
+    public TrabRurAssPosParcArredForSemTer getTrabRurAssPosParcArredForSemTer() {
+        return trabRurAssPosParcArredForSemTer;
+    }
+
+    public void setTrabRurAssPosParcArredForSemTer(TrabRurAssPosParcArredForSemTer trabRurAssPosParcArredForSemTer) {
+        this.trabRurAssPosParcArredForSemTer = trabRurAssPosParcArredForSemTer;
+    }
+
+    public Integer getAnosQtoTempoMora() {
+        return anosQtoTempoMora;
+    }
+
+    public void setAnosQtoTempoMora(Integer anosQtoTempoMora) {
+        this.anosQtoTempoMora = anosQtoTempoMora;
+    }
+
+    public Integer getMesesQtoTempoMora() {
+        return mesesQtoTempoMora;
+    }
+
+    public void setMesesQtoTempoMora(Integer mesesQtoTempoMora) {
+        this.mesesQtoTempoMora = mesesQtoTempoMora;
+    }
+
+    public Integer getAnosTmpTrabAtivAgri() {
+        return anosTmpTrabAtivAgri;
+    }
+
+    public void setAnosTmpTrabAtivAgri(Integer anosTmpTrabAtivAgri) {
+        this.anosTmpTrabAtivAgri = anosTmpTrabAtivAgri;
+    }
+
+    public Integer getMesesTmpTrbAtivAgri() {
+        return mesesTmpTrbAtivAgri;
+    }
+
+    public void setMesesTmpTrbAtivAgri(Integer mesesTmpTrbAtivAgri) {
+        this.mesesTmpTrbAtivAgri = mesesTmpTrbAtivAgri;
+    }
+
+    public Municipio getMunicipioMoradia() {
+        return municipioMoradia;
+    }
+
+    public void setMunicipioMoradia(Municipio municipioMoradia) {
+        this.municipioMoradia = municipioMoradia;
+    }
+
+    public String getDddContato() {
+        return dddContato;
+    }
+
+    public void setDddContato(String dddContato) {
+        this.dddContato = dddContato;
+    }
+
+    public String getTelefoneContato() {
+        return telefoneContato;
+    }
+
+    public void setTelefoneContato(String telefoneContato) {
+        this.telefoneContato = telefoneContato;
+    }
+    
     
     @Override
     public int hashCode() {
@@ -194,5 +307,7 @@ public class Entrevista implements Serializable{
     public String toString() {
         return id.toString();
     }
+
+    
     
 }

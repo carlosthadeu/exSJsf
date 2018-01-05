@@ -25,6 +25,8 @@ import org.apache.commons.codec.digest.DigestUtils;
 @Named("passwordExpiredController")
 @SessionScoped
 public class PasswordExpiredController implements Serializable {
+
+    private static final long serialVersionUID = 3644298865072185746L;
     
     @EJB
     private SecUserFacade ejbUserFacade;

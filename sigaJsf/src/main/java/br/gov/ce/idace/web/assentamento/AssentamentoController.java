@@ -33,6 +33,8 @@ import javax.inject.Named;
 @SessionScoped
 public class AssentamentoController implements Serializable {
 
+    private static final long serialVersionUID = -1918328391376620287L;
+
     @EJB
     private AssentamentoFacade ejbFacade;
     
@@ -41,6 +43,8 @@ public class AssentamentoController implements Serializable {
     
     @EJB
     private MunicipioFacade MunicipioFacade;
+    
+    
     
     private List<TipoAssentamento> listaTipoAssentamentos;
     private List<Municipio> listaMunicipio;
@@ -87,7 +91,7 @@ public class AssentamentoController implements Serializable {
     }
 
     public List<TipoAssentamento> getListaTipoAssentamentos() {
-        if (listaTipoAssentamentos == null) listaTipoAssentamentos = tipoAssentamentoFacade.tipoAssentamentoOrderByTipo();
+        listaTipoAssentamentos = tipoAssentamentoFacade.tipoAssentamentoOrderByTipo();
         return listaTipoAssentamentos;
     }
 
@@ -140,6 +144,8 @@ public class AssentamentoController implements Serializable {
             return null;
         }
     }
+    
+    
 
     public String prepareCreate() {
         current = new Assentamento();
@@ -185,6 +191,11 @@ public class AssentamentoController implements Serializable {
         paramMunicipio = null;
         paramNomeAssentamento = null;
         return "ListAssentamento";
+    }
+    
+    public String prepareListFromFamilia() {
+        recreateModel();
+        return "/faces/view/assentamento/assentamento/ListAssentamento?faces-redirect=true";
     }
     
     public String resetSearch() {

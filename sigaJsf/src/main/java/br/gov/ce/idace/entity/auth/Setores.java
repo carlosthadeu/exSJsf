@@ -32,8 +32,8 @@ import org.springframework.transaction.annotation.Transactional;
 })
 public class Setores implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
+    private static final long serialVersionUID = -5060329574006857004L;
+    
     @Id
     @SequenceGenerator(name = "setores_seq", allocationSize = 1, sequenceName = "setores_id_seq", schema = "sige")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "setores_seq")

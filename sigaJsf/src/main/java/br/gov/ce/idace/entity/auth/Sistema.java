@@ -34,6 +34,8 @@ import org.hibernate.annotations.Cascade;
 @Entity
 @Table(name = "sistemas", schema="public", uniqueConstraints = @UniqueConstraint(name = "unq_nome_sistema", columnNames = {"sistema"}))
 public class Sistema implements Serializable {
+
+    private static final long serialVersionUID = 4402648416138817273L;
     
     @Id
     @SequenceGenerator(name="sistemas_seq", allocationSize = 1, sequenceName = "sistemas_id_seq", schema="public")

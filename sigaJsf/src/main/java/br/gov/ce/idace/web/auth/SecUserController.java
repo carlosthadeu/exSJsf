@@ -40,6 +40,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 @SessionScoped
 public class SecUserController implements Serializable, IControllerService {
 
+    private static final long serialVersionUID = -1823677040218557287L;
+
     @EJB
     private SecUserFacade ejbFacade;
     @EJB

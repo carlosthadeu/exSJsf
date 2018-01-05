@@ -34,9 +34,9 @@ public class FamiliaFacade extends AbstractFacade<Familia> {
     }
     
     public List<Familia> findByAssentamento(Assentamento assentamento, String nomeAssentado, boolean incluirDesistencias ){
-        String hql = "select f from Familia f where (f.assentamento =:assentamento) ";
+        String hql = "select f from Familia f  where (f.assentamento =:assentamento) ";
         if (!(nomeAssentado == null)) hql = hql.concat(" and (upper(f.principal.nome) like  upper(:nomeAssentado) ");
-        if (!incluirDesistencias) hql = hql.concat(" and (f.dataDesistencia is not null) ");
+        if (incluirDesistencias) hql = hql.concat(" and (f.dataDesistencia is not null) ");
         hql = hql.concat(" order by f.codigo");
         TypedQuery query = em.createQuery( hql, Familia.class);
         query.setParameter("assentamento", assentamento);
