@@ -22,6 +22,9 @@ import javax.persistence.Table;
 @Table(name="municipios", schema="ibge")
 @NamedQueries({@NamedQuery(name="municipiosCeara", query="SELECT m FROM Municipio m where m.idUf = '23' order by geocodigo")})
 public class Municipio implements Serializable {
+
+    private static final long serialVersionUID = 4221232128412538455L;
+    
     @Id
     @Column(name="geom_id")
     private Long id;

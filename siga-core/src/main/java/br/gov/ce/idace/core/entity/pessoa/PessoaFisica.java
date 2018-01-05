@@ -33,6 +33,8 @@ import javax.validation.constraints.Size;
 @MappedSuperclass 
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class PessoaFisica implements Serializable {
+
+    private static final long serialVersionUID = 1250677585396083547L;
     
     @Id
     @TableGenerator(
@@ -47,7 +49,7 @@ public abstract class PessoaFisica implements Serializable {
     
     @Column(name="nome")
     @Size(min = 3, max = 200)
-    @NotNull
+  //  @NotNull
     private String nome;
     
     @Column(name="data_nascimento")

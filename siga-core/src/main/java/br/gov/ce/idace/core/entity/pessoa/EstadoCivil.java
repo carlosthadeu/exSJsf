@@ -26,6 +26,9 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name="estado_civil", schema = "pessoa", uniqueConstraints = {@UniqueConstraint(name = "unq_estado_civil", columnNames = {"estado_civil"})})
 public class EstadoCivil implements Serializable {
+
+    private static final long serialVersionUID = 2912290215614012393L;
+    
     @Id
     @SequenceGenerator(name ="estado_civil_seq",schema = "pessoa",allocationSize = 1,initialValue = 1,sequenceName = "seq_estado_civil")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "estado_civil_seq")

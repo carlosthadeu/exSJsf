@@ -28,6 +28,8 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name="escolaridade", schema="pessoa", uniqueConstraints = @UniqueConstraint(name = "unq_escolaridade", columnNames = {"escolaridade"}))
 public class Escolaridade implements Serializable{
+
+    private static final long serialVersionUID = -1672955020038694617L;
     
     @Id    
     @SequenceGenerator(name="escolaridade_seq", allocationSize = 1, sequenceName="seq_escolaridade", schema = "pessoa")
