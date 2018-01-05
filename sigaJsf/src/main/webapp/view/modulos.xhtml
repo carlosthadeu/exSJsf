@@ -26,7 +26,7 @@ and open the template in the editor.
                     <div class="ui-grid-row">
                         <sec:authorize access="hasAnyRole('ROLE_ADMIN')" > 
                             <div class="ui-grid-col-4" >
-                                <p:fieldset legend="Módulo de Controle de Usuários  " style="margin-bottom:20px">
+                                <p:fieldset legend="Módulo de Controle de Usuários  " style="margin-bottom:20px;height: 200px" >
                                     <h:panelGrid columns="2" cellpadding="5">
                                         <p:graphicImage library="images" name="pessoas.png" />
 
@@ -39,7 +39,7 @@ and open the template in the editor.
                         </sec:authorize>
                         
                             <div class="ui-grid-col-4">
-                                <p:fieldset legend="Módulo Assentamento" style="margin-bottom:20px">
+                                <p:fieldset legend="Módulo Assentamento" style="margin-bottom:20px;height: 200px">
                                     <h:panelGrid columns="2" cellpadding="5">
                                         <p:graphicImage library="images" name="assentamento.png" />
 
@@ -52,7 +52,7 @@ and open the template in the editor.
                         
                         <sec:authorize access="hasAnyRole('ROLE_ADMIN')" > 
                             <div class="ui-grid-col-4" >
-                                <p:fieldset legend="Módulo Pessoas" style="margin-bottom:20px">
+                                <p:fieldset legend="Módulo Pessoas" style="margin-bottom:20px;height: 200px">
                                     <h:panelGrid columns="2" cellpadding="5">
                                         <p:graphicImage library="images" name="administrador.png" />
 
@@ -64,32 +64,7 @@ and open the template in the editor.
                             </div>
                         </sec:authorize>
                     </div>
-                    <div class="ui-grid-row">
-                        <div class="ui-grid-col-4">
-                            <p:fieldset legend="Mais um menu " style="margin-bottom:20px">
-                                <h:panelGrid columns="2" cellpadding="5">
-                                    <p:graphicImage library="images" name="pessoas.png" />
-                                    <h:outputText value="Módulo 3" />
-                                </h:panelGrid>
-                            </p:fieldset>
-                        </div> 
-                        <div class="ui-grid-col-4">
-                            <p:fieldset legend="Mais um menu " style="margin-bottom:20px">
-                                <h:panelGrid columns="2" cellpadding="5">
-                                    <p:graphicImage library="images" name="pessoas.png" />
-                                    <h:outputText value="Módulo 4" />
-                                </h:panelGrid>
-                            </p:fieldset>
-                        </div>
-                        <div class="ui-grid-col-4">
-                            <p:fieldset legend="Mais um menu " style="margin-bottom:20px">
-                                <h:panelGrid columns="2" cellpadding="5">
-                                    <p:graphicImage library="images" name="pessoas.png" />
-                                    <h:outputText value="Módulo 5" />
-                                </h:panelGrid>
-                            </p:fieldset>
-                        </div>   
-                    </div>
+                    
                 </div>
             </ui:define>
         </ui:composition>

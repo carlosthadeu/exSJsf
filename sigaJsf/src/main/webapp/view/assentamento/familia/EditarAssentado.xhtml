@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template/common/layoutPrincipal.xhtml">
+        <ui:define name="content">
+            
+            <h:form>
+                <p:panelGrid columns="2">
+                    <f:facet name="header" >
+                        Editar Assentado
+                    </f:facet>
+                    <p:panelGrid >
+                                <p:row>
+                                    <p:column><p:outputLabel value="Data do nascimento" for="datanascimento" /></p:column>
+                                    <p:column ><p:calendar id="datanascimento" value="#{familiaController.assentadoSelecionado.dataNascimento}" locale="pt" showOn="button" navigator="true" yearRange="c-100:c+0" pattern="dd/MM/yyyy" /></p:column>
+                                    <p:column><p:outputLabel value="UF do nascimento" for="selectUfNasc" /></p:column>
+                                    <p:column>
+                                        <p:selectOneMenu id="selectUfNasc" value="#{familiaController.assentadoSelecionado.ufNascimento}"  >
+                                            <p:ajax listener="#{familiaController.onUfNascChange()}" update="selectMunicipioNasc" />
+                                            <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                                            <f:selectItems value="#{familiaController.estados}" var="selecioneEstadoNasc" itemLabel="#{selecioneEstadoNasc.nome}"  itemValue="#{selecioneEstadoNasc}"  />
+                                        </p:selectOneMenu>
+                                    </p:column>
+                                    <p:column>
+                                        <p:outputLabel for="selectMunicipioNasc" value="Município de Nascimento" />
+                                    </p:column>
+                                    <p:column>
+                                        <p:selectOneMenu id="selectMunicipioNasc" value="#{familiaController.assentadoSelecionado.municipioNascimento}" converter="municipioConverter" >
+                                            <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                                            <f:selectItems value="#{familiaController.listaMunNasc}" var="selecioneMunicipioNasc" itemLabel="#{selecioneMunicipioNasc.nome}"  itemValue="#{selecioneMunicipioNasc}"  />
+                                        </p:selectOneMenu>
+                                    </p:column>
+
+                                </p:row>
+                                <p:row>
+                                    <p:column><p:outputLabel value="Nome" /></p:column>
+                                    <p:column colspan="5"><p:outputLabel value="#{familiaController.assentadoSelecionado.nome}" /></p:column>
+                                </p:row>
+
+
+                                <p:row>
+                                    <p:column><p:outputLabel value="Nome da mãe" for="nomemae" /></p:column>
+                                    <p:column colspan="5"><p:inputText id="nomemae" value="#{familiaController.assentadoSelecionado.nomeMae}" title="Nome da Mãe"  size="100"/></p:column>
+                                </p:row>
+                                <p:row>
+
+                                    <p:column><p:outputLabel value="Renda mensal em R$" for="rendamen"/></p:column>
+                                    <p:column colspan="2"><p:inputText id="rendamen" value="#{familiaController.assentadoSelecionado.rendaMensal}" title="Renda mensal"  size="30" converter="doubleConverter"/></p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column><p:outputLabel value="Sexo" for="sexo" /></p:column>
+                                    <p:column>
+                                        <p:selectOneRadio id="sexo" value="#{familiaController.assentadoSelecionado.sexo}" columns="2">
+                                            <f:selectItems value="#{familiaController.sexos}" var="sexo" itemLabel="#{sexo.sexo}" itemValue="#{sexo}"/>
+                                        </p:selectOneRadio>
+                                    </p:column>
+                                    <p:column><p:outputLabel value="Estuda ?" for="estudason" /></p:column>
+                                    <p:column>
+                                        <p:selectOneRadio id="estudason" value="#{familiaController.assentadoSelecionado.estuda}" columns="2" >
+                                            <f:selectItem itemLabel="Sim" itemValue="true" />
+                                            <f:selectItem itemLabel="Não" itemValue="false" />
+                                        </p:selectOneRadio>
+                                    </p:column>
+                                    <p:column><p:outputLabel value="Escolaridade" for="escolaridade" /></p:column>
+                                    <p:column>
+                                        <p:selectOneMenu id="escolaridade" value="#{familiaController.assentadoSelecionado.escolaridade}"  >
+                                            <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                                            <f:selectItems value="#{familiaController.listaEscolaridades}" var="selecioneEscolaridade" itemLabel="#{selecioneEscolaridade.escolaridade}"  itemValue="#{selecioneEscolaridade}"  />
+                                        </p:selectOneMenu>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Nacionalidade" for="selectNacionalidade" />
+                                    </p:column>
+                                    <p:column>
+                                        <p:selectOneMenu id="selectNacionalidade" value="#{familiaController.assentadoSelecionado.nacionalidade}"  >
+                                            <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                                            <f:selectItems value="#{familiaController.nacionalidades}" var="selecioneNacionalidade" itemLabel="#{selecioneNacionalidade.nacionalidade}"  itemValue="#{selecioneNacionalidade}"  />
+                                        </p:selectOneMenu>
+                                    </p:column>
+                                    <p:column><p:outputLabel value="Estado Civil" for="estadoCivil" /></p:column>
+                                    <p:column>
+                                        <p:selectOneMenu id="estadoCivil" value="#{familiaController.assentadoSelecionado.estadoCivil}"  >
+                                            <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                                            <f:selectItems value="#{familiaController.listaEstadoCivil}" var="selecioneEstadoCivil" itemLabel="#{selecioneEstadoCivil.estadoCivil}"  itemValue="#{selecioneEstadoCivil}"  />
+                                        </p:selectOneMenu>
+                                    </p:column>
+                                    <p:column><p:outputLabel value="Exerce função pública ?" for="exfunpub" /></p:column>
+                                    <p:column>
+                                        <p:selectOneRadio id="exfunpub" value="#{familiaController.assentadoSelecionado.exerceFuncaoPublica}" columns="2" >
+                                            <f:selectItem itemLabel="Sim" itemValue="true" />
+                                            <f:selectItem itemLabel="Não" itemValue="false" />
+                                        </p:selectOneRadio>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column colspan="3"><p:outputLabel value="Possui antecedentes criminais com sentença definitiva transitada em julgado ?" for="antcri" /></p:column>
+                                    <p:column>
+                                        <p:selectOneRadio id="antcri" value="#{familiaController.assentadoSelecionado.antecedentesCriminais}" columns="2" >
+                                            <f:selectItem itemLabel="Sim" itemValue="true" />
+                                            <f:selectItem itemLabel="Não" itemValue="false" />
+                                        </p:selectOneRadio>
+                                    </p:column>
+                                    <p:column><p:outputLabel value="É aposentado(a) por invalidez ?" for="apoinv" /></p:column>
+                                    <p:column>
+                                        <p:selectOneRadio id="apoinv" value="#{familiaController.assentadoSelecionado.aposentadoriaInvalidez}" columns="2" >
+                                            <f:selectItem itemLabel="Sim" itemValue="true" />
+                                            <f:selectItem itemLabel="Não" itemValue="false" />
+                                        </p:selectOneRadio>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column colspan="3"><p:outputLabel value="É co-participante de estabelecimento comercial ou industrial ?" for="copart" /></p:column>
+                                    <p:column>
+                                        <p:selectOneRadio id="copart" value="#{familiaController.assentadoSelecionado.partEstabComInd}" columns="2" >
+                                            <f:selectItem itemLabel="Sim" itemValue="true" />
+                                            <f:selectItem itemLabel="Não" itemValue="false" />
+                                        </p:selectOneRadio>
+                                    </p:column>
+                                    <p:column><p:outputLabel value="É ex-beneficiário(a) de programa nacional de reforma agrária ?" for="refagr" /></p:column>
+                                    <p:column>
+                                        <p:selectOneRadio id="refagr" value="#{familiaController.assentadoSelecionado.exBenProgNacRefAgra}" columns="2" >
+                                            <f:selectItem itemLabel="Sim" itemValue="true" />
+                                            <f:selectItem itemLabel="Não" itemValue="false" />
+                                        </p:selectOneRadio>
+                                    </p:column>
+                                </p:row>
+
+                                <p:row>
+                                    <p:column colspan="6">
+                                        <p:panel id="docAssentado" header="Documentos"  style="margin-bottom:20px">
+                                            <p:panelGrid columns="3" >
+                                                <p:panelGrid columns="2" >
+                                                    <p:outputLabel value="CPF"/>
+                                                    <p:outputLabel value="#{familiaController.assentadoSelecionado.cpf}" converter="cpfConverter" />
+                                                    <p:outputLabel value="PIS/PASEP" for="pisPasep" />
+                                                    <p:inputMask id="pisPasep" value="#{familiaController.assentadoSelecionado.pisPasep}" title="PIS/PASEP"  size="15" mask="999.99999.99-9" converter="pisPasepConverter"/>
+                                                </p:panelGrid>
+                                                <p:panelGrid columns="2" >
+                                                    <f:facet name="header" >Carteira de Identidade</f:facet>
+                                                    <p:outputLabel value="Nº RG" for="rg" />
+                                                    <p:inputText id="rg" value="#{familiaController.assentadoSelecionado.rg}" title="RG"   size="20"/>
+                                                    <p:outputLabel value="Órgão Emissor" for="emissorRg" />
+                                                    <p:inputText id="emissorRg" value="#{familiaController.assentadoSelecionado.orgaoEmissorRg}" title="Órgão Emisor"   size="10"/>
+                                                    <p:outputLabel value="UF" for="selectUfRg" />
+                                                    <p:selectOneMenu id="selectUfRg" value="#{familiaController.assentadoSelecionado.ufRg}"  >
+                                                        <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                                                        <f:selectItems value="#{familiaController.estados}" var="selecioneEstado" itemLabel="#{selecioneEstado.nome}"  itemValue="#{selecioneEstado}"  />
+                                                    </p:selectOneMenu>
+                                                </p:panelGrid>
+                                                <p:panelGrid columns="2" >
+                                                    <f:facet name="header" >Carteira de Trabalho</f:facet>
+                                                    <p:outputLabel value="Nº CTPS" for="ctps" />
+                                                    <p:inputText id="ctps" value="#{familiaController.assentadoSelecionado.ctps}" title="CTPS"   size="20"/>
+                                                    <p:outputLabel value="Série" for="serieCtps" />
+                                                    <p:inputText id="serieCtps" value="#{familiaController.assentadoSelecionado.serieCtps}" title="Série CTPS"   size="10"/>
+                                                    <p:outputLabel value="UF" for="selectUfCtps" />
+                                                    <p:selectOneMenu id="selectUfCtps" value="#{familiaController.assentadoSelecionado.ufCtps}"  >
+                                                        <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                                                        <f:selectItems value="#{familiaController.estados}" var="selecioneEstadoctps" itemLabel="#{selecioneEstadoctps.nome}"  itemValue="#{selecioneEstadoctps}"  />
+                                                    </p:selectOneMenu>
+                                                </p:panelGrid>
+                                            </p:panelGrid>
+                                        </p:panel>
+                                    </p:column>
+                                </p:row>
+                            </p:panelGrid>
+                    <p:column/>
+                    <p:panelGrid columns="2">
+                        <p:commandButton action="#{familiaController.updateAssentado}" icon="ui-icon-disk"  ajax="false" value="Salvar"/>
+                        <p:commandButton action="#{familiaController.prepareList}" value="Retornar a listagem de famílias" immediate="true" icon="ui-icon-cancel"  ajax="false" />
+                    </p:panelGrid>
+
+                </p:panelGrid>
+                
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
+

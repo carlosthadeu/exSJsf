@@ -18,10 +18,10 @@ and open the template in the editor.
                 <p:panelGrid columns="2" >
                     <f:facet name="header">
                         <p:row>
-                            <p:column colspan="2">Famílias</p:column>
+                            <p:column colspan="2">Pesquisar famílias do assentamento: #{familiaController.assentamento.codigo} -  #{familiaController.assentamento.assentamento}</p:column>
                         </p:row>
                     </f:facet>
-                    <p:outputLabel value="Nome" for="nome" />
+                    <p:outputLabel value="Nome do assentado" for="nome" />
                     <p:inputText id="nome" value="#{familiaController.paramAssentado}" title="Nome"/>
                     <p:outputLabel value="Incluir famílias que desistiram ?" for="desistencia" />
                     <p:selectOneRadio id="desistencia" value="#{familiaController.incluirDesistencia}" columns="2" >
@@ -36,7 +36,7 @@ and open the template in the editor.
                     </p:panelGrid>
                 </p:panelGrid>
 
-                <p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
+                
                 <p:dataTable var="item" value="#{familiaController.items}" 
                              rows="20" paginator="true"
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -46,25 +46,25 @@ and open the template in the editor.
                              id="TabelaFamilia">
 
 
-                    <p:column headerText="Código" sortBy="#{item.codigoFamilia}">
-                        <h:outputText value="#{item.codigoFamilia}" />
+                    <p:column headerText="Código" sortBy="#{item.codigo}">
+                        <h:outputText value="#{item.codigo}" />
                     </p:column>
-                    <p:column headerText="Assentado" sortBy="#{item.casais.principal.nome}">
-                        <h:outputText value="#{item.item.casais.principal.nome}" />
+                    <p:column headerText="Assentado" sortBy="#{item.ultimaConformacaoCasal.principal.nome}">
+                        <p:commandLink action="#{familiaController.editarAssentado(item.ultimaConformacaoCasal.principal)}" ajax="false"><h:outputText value="#{item.ultimaConformacaoCasal.principal}"/></p:commandLink>
+                        
                     </p:column>
-                    <p:column headerText="Conjuge" sortBy="#{(item.casais.conjuge== null) ? 'Sem conjuge' : item.casais.conjuge.nome}">
-                        <h:outputText value="#{item.item.casais.conjuge.nome}" />
+                    <p:column headerText="Conjuge" sortBy="#{(item.ultimaConformacaoCasal.conjuge== null) ? 'Sem conjuge' : item.ultimaConformacaoCasal.conjuge.nome}">
+                        <p:commandLink action="#{familiaController.editarAssentado(item.ultimaConformacaoCasal.conjuge)}" ajax="false"><h:outputText value="#{item.ultimaConformacaoCasal.conjuge.nome}"/></p:commandLink>
                     </p:column>                    
                     <p:column headerText="Ações" style="width:100px;text-align: center">
-                        <p:commandButton action="#{familiaController.prepareView}" icon="ui-icon-search"  ajax="false"/>
-                        <p:commandButton action="#{familiaController.prepareEdit}" icon="ui-icon-pencil" ajax="false"/>
+                        <p:commandButton id="btnView" action="#{familiaController.prepareView}" icon="ui-icon-search"  ajax="false"/>
+                        <p:tooltip  for="btnView" value="Ver detalhes da família" position="top"/>
+                        <p:commandButton id="btnMF" action="#{familiarAssentadoController.prepareListFromFamilia(item)}" icon="fa fa-child" ajax="false"/>
+                        <p:tooltip  for="btnMF" value="Membros da família" position="top"/>
                     </p:column >
                     <f:facet name="footer">
                         <p:commandButton action="#{familiaController.prepareCreate}" icon="ui-icon-plus" value="Novo" ajax="false" />
-                        <p:commandButton actionListener="#{familiaController.destroyList}" icon="ui-icon-trash" value="Excluir" update="TabelaFamilia">
-                            <p:confirm header="Confirmar exclusão" message="Quer realmente excluir o registro ?" icon="ui-icon-alert" />
-                        </p:commandButton>
-                        <p:commandButton action="#{assentamentoController.prepareList()}" icon="ui-icon-script" value="Retornar a listagem de assentamentos" ajax="false" />
+                        <p:commandButton action="#{assentamentoController.prepareListFromFamilia()}" icon="ui-icon-script" value="Retornar a listagem de assentamentos" ajax="false" />
                     </f:facet>
                 </p:dataTable>
                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

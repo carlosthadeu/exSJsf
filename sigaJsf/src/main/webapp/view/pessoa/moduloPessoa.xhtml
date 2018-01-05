@@ -25,13 +25,21 @@ and open the template in the editor.
                                 </h:panelGrid>
                             </p:panel>
                         </div>
-                    
-                
+
+
                         <div class="ui-grid-col-6">
                             <p:panel id="estadoCivil" header="Estado Civil" style="margin-bottom:20px">
                                 <h:panelGrid columns="2" cellpadding="5">
                                     <p:graphicImage library="images" name="estadocivil.png" />
                                     <p:link outcome="/faces/view/pessoa/estadoCivil/ListEstadoCivil" value="Estado Civil" ></p:link>
+                                </h:panelGrid>
+                            </p:panel>
+                        </div>
+                        <div class="ui-grid-col-6" >
+                            <p:panel id="principalmenu" header="Retornar ao menu inicial" style="margin-bottom:20px">
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <p:graphicImage library="images" name="home.png" />
+                                    <p:link outcome="/faces/view/modulos.xhtml" value="Principal" ></p:link>
                                 </h:panelGrid>
                             </p:panel>
                         </div>

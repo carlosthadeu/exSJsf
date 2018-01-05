@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <ui:composition template="/template/common/layoutPrincipal.xhtml">
+        <ui:define name="content">
+            <h:form id="FormFamiliarAssentado" >
+                <p:panelGrid >
+                    <f:facet name="header">
+                        <p:row>
+                            <p:column colspan="2">Código da Família: #{familiarAssentadoController.familia.codigo} </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="2">Lista dos familiares dos assentados: #{familiarAssentadoController.familia.ultimaConformacaoCasal.principal} e #{familiarAssentadoController.familia.ultimaConformacaoCasal.conjuge} </p:column>
+                        </p:row>
+                    </f:facet>
+                    <p:row>
+                        <p:column><p:outputLabel value="Somente ativos ?" for="estudason" /></p:column>
+                    <p:column>
+                        <p:selectOneRadio id="estudason" value="#{familiarAssentadoController.somenteAtivos}" columns="2" >
+                            <f:selectItem itemLabel="Sim" itemValue="true" />
+                            <f:selectItem itemLabel="Não" itemValue="false" />
+                            <p:ajax update="TabelaFamiliar" process="@this" listener="#{familiarAssentadoController.onAtivoChange}"/>
+                        </p:selectOneRadio>
+                    </p:column>
+                    </p:row>
+                </p:panelGrid>
+                
+                <p:dataTable var="item" value="#{familiarAssentadoController.items}" 
+                             rows="10" paginator="true"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="10,20,30"
+                             rowIndexVar="rowIx"
+                             rowStyleClass="#{empty rowIx or rowIx mod 2 eq 0 ? 'ui-datatable-even' : 'ui-datatable-odd'}"
+                             id="TabelaFamiliar">
+
+
+                    <p:column headerText="Nome" sortBy="#{item.nome}" width="100">
+                        <h:outputText value="#{item.nome}" />
+                    </p:column>
+                    <p:column headerText="Data de nascimento"  width="30">
+                        <h:outputText value="#{item.dataNascimento}"  >
+                            <f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Sexo"  width="40">
+                        <h:outputText value="#{item.sexo.sexo}" />
+                    </p:column>
+                    
+                    <p:column headerText="Parentesco"  width="50">
+                        <h:outputText value="#{item.parentesco.parentesco}" />
+                    </p:column>
+                    
+                    <p:column headerText="Estuda"  width="30">
+                        <h:outputText value="#{item.estuda ? 'sim' : 'não'}" />
+                    </p:column>
+                    
+                    <p:column headerText="Escolaridade"  width="50">
+                        <h:outputText value="#{item.escolaridade.escolaridade}" />
+                    </p:column>
+                    
+                    <p:column headerText="CPF"  width="40">
+                        <h:outputText value="#{item.cpf}" />
+                    </p:column>
+                    
+                    <p:column headerText="Ativo"  width="30">
+                        <h:outputText value="#{item.ativo ? 'sim' : 'não'}" />
+                    </p:column>
+                    
+                    <p:column headerText="Data desativação"  width="30">
+                        <h:outputText value="#{item.dataDesativacao}"  >
+                            <f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Ações" style="width:100px;text-align: center" width="40">
+                        
+                        <p:commandButton id="btnEdit" action="#{familiarAssentadoController.prepareEdit}" icon="ui-icon-pencil" ajax="false"/>
+                        <p:tooltip  for="btnEdit" value="Editar membro da família" position="top"/>
+                        <p:commandButton id="btnAtivo" action="#{familiarAssentadoController.alterarAtivo}" icon="fa fa-check"  ajax="true" update="TabelaFamiliar"/>
+                        <p:tooltip  for="btnAtivo" value="Ativar/Desativar membro da família" position="top"/>
+                        </p:column >
+                    <f:facet name="footer">
+                        <p:commandButton action="#{familiarAssentadoController.prepareCreate}" icon="ui-icon-plus" value="Novo" ajax="false" />
+                        <p:commandButton action="#{familiaController.prepareListFromAssentamento(familiarAssentadoController.familia.assentamento)}" icon="ui-icon-script" value="Retornar a listagem das famílias" ajax="false" />
+                    </f:facet>
+                </p:dataTable>
+                
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -18,7 +18,7 @@ and open the template in the editor.
                 <div class="ui-grid">
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-6" >
-                            <p:panel id="assentamento" header="Assentamentos" style="margin-bottom:20px">
+                            <p:panel id="assentamento" header="Assentamentos" style="margin-bottom:20px;height: 200px">
                                 <h:panelGrid columns="2" cellpadding="5">
                                     <p:graphicImage library="images" name="assentamento.png" />
                                     <p:link outcome="/faces/view/assentamento/assentamento/ListAssentamento" value="Assentamentos" ></p:link>
@@ -26,7 +26,7 @@ and open the template in the editor.
                             </p:panel>
                         </div>
                         <div class="ui-grid-col-6" >
-                            <p:panel id="entrevistador" header="Entrevistadores" style="margin-bottom:20px">
+                            <p:panel id="entrevistador" header="Entrevistadores" style="margin-bottom:20px;height: 200px">
                                 <h:panelGrid columns="2" cellpadding="5">
                                     <p:graphicImage library="images" name="entrevistador.png" />
                                     <p:link outcome="/faces/view/assentamento/entrevistador/ListEntrevistador" value="Entrevistadores do Programa Nacional de Reforma Agrária" ></p:link>
@@ -34,7 +34,7 @@ and open the template in the editor.
                             </p:panel>
                         </div>
                         <div class="ui-grid-col-6" >
-                            <p:panel id="tipoAssentamento" header="Tipo de Assentamento" style="margin-bottom:20px">
+                            <p:panel id="tipoAssentamento" header="Tipo de Assentamento" style="margin-bottom:20px;height: 200px">
                                 <h:panelGrid columns="2" cellpadding="5">
                                     <p:graphicImage library="images" name="assentamento.png" />
                                     <p:link outcome="/faces/view/assentamento/tipoAssentamento/ListTipoAssentamento" value="Tipos de Assentamento" ></p:link>
@@ -42,7 +42,26 @@ and open the template in the editor.
                             </p:panel>
                         </div>
                     </div>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-6" >
+                            <p:panel id="parentesco" header="Parentesco" style="margin-bottom:20px;height: 200px">
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <p:graphicImage library="images" name="familia.png" />
+                                    <p:link outcome="/faces/view/assentamento/parentesco/ListParentesco" value="Tipos de Parentesco" ></p:link>
+                                </h:panelGrid>
+                            </p:panel>
+                        </div>
+                        <div class="ui-grid-col-6" >
+                            <p:panel id="principalmenu" header="Retornar ao menu inicial" style="margin-bottom:20px;height: 200px">
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <p:graphicImage library="images" name="home.png" />
+                                    <p:link outcome="/faces/view/modulos.xhtml" value="Principal" ></p:link>
+                                </h:panelGrid>
+                            </p:panel>
+                        </div>
+                    </div>
                 </div>
+                
 
             </ui:define>
         </ui:composition>

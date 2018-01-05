@@ -47,6 +47,10 @@ and open the template in the editor.
                                     </h:panelGrid>
                                 </p:panel>
                             </div> 
+                        </sec:authorize>
+                    </div>
+                    <div class="ui-grid-row">
+                        <sec:authorize access="hasAnyRole('ROLE_ADMIN')" > 
                             <div class="ui-grid-col-6" >
                                 <p:panel id="funcionalidades" header="Funcionalidades" style="margin-bottom:20px">
                                     <h:panelGrid columns="2" cellpadding="5">
@@ -63,9 +67,18 @@ and open the template in the editor.
                                         <p:link outcome="/faces/view/auth/secRole/ListSecRole" value="Roles dos sistemas controladas pelo Spring Security" ></p:link>
                                     </h:panelGrid>
                                 </p:panel>
-                            </div> 
+                            </div>
+                            <div class="ui-grid-col-6" >
+                                <p:panel id="principalmenu" header="Retornar ao menu inicial" style="margin-bottom:20px">
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <p:graphicImage library="images" name="home.png" />
+                                        <p:link outcome="/faces/view/modulos.xhtml" value="Principal" ></p:link>
+                                    </h:panelGrid>
+                                </p:panel>
+                            </div>
                         </sec:authorize>
                     </div>
+
                 </div>
 
             </ui:define>

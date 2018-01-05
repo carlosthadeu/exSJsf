@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template/common/layoutPrincipal.xhtml">
+        <ui:define name="content">
+
+            <h:form>
+                <p:panelGrid columns="2">
+                    <f:facet name="header" >
+                        Editar Familiar
+                    </f:facet>
+                    <p:outputLabel value="Data do nascimento" for="datanascimento" />
+                    <p:calendar id="datanascimento" value="#{familiarAssentadoController.selected.dataNascimento}" locale="pt" showOn="button" navigator="true" yearRange="c-100:c+0" pattern="dd/MM/yyyy" />
+                    <p:outputLabel value="Nome" for="nome" />
+                    <p:inputText id="nome" value="#{familiarAssentadoController.selected.nome}" title="Nome"  required="true" requiredMessage="Nome obrigatório !" size="100"/>
+                    <p:outputLabel value="Sexo" for="sexo" />
+                    <p:selectOneRadio id="sexo" value="#{familiarAssentadoController.selected.sexo}" columns="2">
+                        <f:selectItems value="#{familiarAssentadoController.sexos}" var="sexo" itemLabel="#{sexo.sexo}" itemValue="#{sexo}"/>
+                    </p:selectOneRadio>
+                    <p:outputLabel value="Parentesco" for="selectParentesco" />
+                    <p:selectOneMenu id="selectParentesco" value="#{familiarAssentadoController.selected.parentesco}" required="true" requiredMessage="O tipo de parentesco não pode ser nulo" >
+                        <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                        <f:selectItems value="#{familiarAssentadoController.listaParentesco}" var="selecioneParentesco" itemLabel="#{selecioneParentesco.parentesco}"  itemValue="#{selecioneParentesco}"  />
+                    </p:selectOneMenu>
+                    <p:column><p:outputLabel value="Estuda ?" for="estudason" /></p:column>
+                    <p:column>
+                        <p:selectOneRadio id="estudason" value="#{familiarAssentadoController.selected.estuda}" columns="2" >
+                            <f:selectItem itemLabel="Sim" itemValue="true" />
+                            <f:selectItem itemLabel="Não" itemValue="false" />
+                        </p:selectOneRadio>
+                    </p:column>
+                    <p:column><p:outputLabel value="Escolaridade" for="escolaridade" /></p:column>
+                    <p:column>
+                        <p:selectOneMenu id="escolaridade" value="#{familiarAssentadoController.selected.escolaridade}"  >
+                            <f:selectItem itemLabel="Selecione..." itemValue=""/>
+                            <f:selectItems value="#{familiarAssentadoController.listaEscolaridades}" var="selecioneEscolaridade" itemLabel="#{selecioneEscolaridade.escolaridade}"  itemValue="#{selecioneEscolaridade}"  />
+                        </p:selectOneMenu>
+                    </p:column>
+                    <p:outputLabel value="CPF" for="cpf" />
+                    <p:inputMask id="cpf" value="#{familiarAssentadoController.selected.cpf}" title="CPF"  size="15" mask="999.999.999-99" converter="cpfConverter" />
+                    <p:column/>
+                    <p:panelGrid columns="2">
+                        <p:commandButton action="#{familiarAssentadoController.update}" icon="ui-icon-disk"  ajax="false" value="Salvar"/>
+                        <p:commandButton action="#{familiarAssentadoController.prepareList}" value="Lista de familiarAssentadoes" immediate="true" icon="ui-icon-cancel"  ajax="false" />
+                    </p:panelGrid>
+
+                </p:panelGrid>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
+

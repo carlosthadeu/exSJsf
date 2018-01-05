@@ -71,21 +71,20 @@ and open the template in the editor.
                     
 
                     <p:column headerText="Ações" style="width:100px;text-align: center" width="20">
-                        <p:commandButton action="#{assentamentoController.prepareView}" icon="ui-icon-search"  ajax="false"/>
-                        <p:commandButton action="#{assentamentoController.prepareEdit}" icon="ui-icon-pencil" ajax="false"/>
-                        <p:commandButton action="#{familiaController.prepareListFromAssentamento(item)}" icon="fa fa-users" ajax="false" />
-
-                        <p:commandButton action="#{assentamentoController.destroy}" icon="ui-icon-trash" ajax="true">
+                        <p:commandButton id="btnDetalhes" action="#{assentamentoController.prepareView}" icon="ui-icon-search"  ajax="false"/>
+                        <p:tooltip  for="btnDetalhes" value="Ver detalhes do assentamento" position="top"/>
+                        <p:commandButton id="btnEdit" action="#{assentamentoController.prepareEdit}" icon="ui-icon-pencil" ajax="false"/>
+                        <p:tooltip  for="btnEdit" value="Editar assentamento" position="top"/>
+                        <p:commandButton id="btnFamilia" action="#{familiaController.prepareListFromAssentamento(item)}" icon="fa fa-users" ajax="false" />
+                        <p:tooltip  for="btnFamilia" value="Famílias do assentamento" position="top"/>
+                        <p:commandButton id="btnExcluir" action="#{assentamentoController.destroy}" icon="ui-icon-trash" ajax="true">
                             <p:confirm header="Confirmar exclusão de assentamento" message="Deseja realmente excluir este assentamento ?" icon="ui-icon-alert" />
-                        </p:commandButton>    
-
-
-
-
+                        </p:commandButton>
+                        <p:tooltip  for="btnExcluir" value="Excluir assentamento" position="top"/>
                     </p:column >
                     <f:facet name="footer">
                         <p:commandButton action="#{assentamentoController.prepareCreate}" icon="ui-icon-plus" value="Novo" ajax="false" />
-                        <p:button outcome="/faces/view/auth/moduloControleUsuario" value="Retornar ao menu do módulo" icon="ui-icon-script"></p:button>
+                        <p:button outcome="/faces/view/assentamento/moduloAssentamento" value="Retornar ao menu do módulo" icon="ui-icon-script"></p:button>
                     </f:facet>
                 </p:dataTable>
                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
